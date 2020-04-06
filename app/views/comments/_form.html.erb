@@ -1,14 +1,15 @@
-<div class="card border-success mb-3">
+<div class="card border-success">
   <div class="card-header bg-success"> Add a comment:</div>
 
   <%= form_with(model: [@article, @article.comments.build ], local: true ) do |form| %>
 
   <div class="card-body">
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter, value: (current_user.nil? ? 'default' : current_user.username), class: "form-control" %>
-  </div>
-  <div class="card-body">
-    <%= form.label :body %><br>
+    <%#= form.label :commenter %><br>
+    <%#= form.text_field :commenter, value: (current_user.nil? ? 'default' : current_user.username), class: "form-control" %>
+    <%# if current_user %>
+    @<%= current_user.username %>
+    <%= form.hidden_field :commenter, value: current_user.username%>
+    <%# end %>
     <%= form.text_area :body, class: "form-control" %>
   </div>
   <div class="card-body">

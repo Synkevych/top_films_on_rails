@@ -1,14 +1,20 @@
-<% provide(:title, "Log in") %>
-<h1>Log in</h1>
+<%# provide(:title, "Log in") %>
+<div class="col">
+  <div class="jumbotron text-center">
+    <h3 class="display-5">Log in
+    </h3>
+    <ul class="list-unstyled">
+      <%= form_tag '/login' do%>
+      <li> <%= label_tag :username %><br>
+        <%= text_field_tag :username%><br> </li>
+      <li> <%= label_tag :password %><br>
+        <%= password_field_tag :password %><br></li>
+      <li class="mt-2">
+        <%= submit_tag "Login",  class: "btn btn-success"%>
+        <%= link_to "Sign In", '/users/new', method: :get, class: "btn btn-primary"%>
+        <%end%>
+      </li>
+      <ul>
 
-
-
-<%= form_tag '/login' do%>
-<%= label_tag :username%><br>
-<%= text_field_tag :username%><br>
-<%= label_tag :password%><br>
-<%= password_field_tag :password%><br>
-
-<%= submit_tag "Login" %>
-<%= link_to "Sign In", '/users/new', method: :get%>
-<%end%>
+  </div>
+</div>

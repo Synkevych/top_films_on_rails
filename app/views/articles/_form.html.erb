@@ -1,5 +1,5 @@
-<%#= form_with(model: @article, local: true) do |form| %>
-<%= form_with(model: [@user, @article ], method: "get", local: true) do |form| %>
+<%= form_with(model: @article, local: true) do |form| %>
+<%#= form_with(model: [@article, session[:user_id] ], method: "get", local: true) do |form| %>
 
 <% if @article.errors.any? %>
 <div class="alert alert-danger" id="error_explanation" role="alert">
@@ -24,6 +24,10 @@
   <%= form.label :text %>
   <%= form.text_area :text, class: "form-control" %>
 </div>
+<% if current_user %>
+    User ID:<%= current_user.id %>
+<%= form.hidden_field :user_id, value: current_user.id%>
+<% end %>
 
 <div class="card-body">
   <%= submit_tag 'Submit', class: 'btn btn-primary' %>

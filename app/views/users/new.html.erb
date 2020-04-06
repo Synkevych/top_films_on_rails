@@ -1,15 +1,24 @@
-<h1>Sing Up</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="col">
+  <div class="jumbotron text-center">
+    <h3 class="display-5">Sing Up</h3>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <ul class="list-unstyled">
+      <%= form_for @user do |form| %>
+      <li>
+        <%= form.label :username %><br>
+        <%= form.text_field :username %><br>
+      </li>
+      <li>
+        <%= form.label :password %><br>
+        <%= form.password_field :password %><br />
+      </li>
+      <li class="mt-2">
+        <%= form.submit class: "btn btn-success"%>
+        <%= link_to "Login", '/login', method: :get, class: "btn btn-primary"%>
+        <% end %>
+      </li>
+      <ul>
 
-
-
-<%= form_for @user do |form| %>
-<%= form.label :username %><br>
-<%= form.text_field :username %><br>
-
-<%= form.label :password %><br>
-<%= form.password_field :password %><br>
-<%= form.submit %>
-<%= button_to "Login", '/users/new', method: :get%>
-
-<% end %>
+  </div>
+</div>

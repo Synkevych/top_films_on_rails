@@ -36,8 +36,8 @@ class ArticlesController < ApplicationController
   def create
     @user_id = session[:id]
     
-    @article = @user.articles.create(article_params)
-     #@article = Article.new(article_params)
+     @article = @user.articles.new(article_params )
+     #@article = Article.new(article_params )
 
     if @article.save
       redirect_to @article

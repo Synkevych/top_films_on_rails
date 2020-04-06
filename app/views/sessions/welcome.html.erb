@@ -1,17 +1,19 @@
-<div class="jumbotron">
+<div class="col">
+  <div class="jumbotron text-center">
     <h3 class="display-5">Welcome</h3>
     <p class="lead">
-        <%if logged_in?%>
-        You are Logged In, <b><%= current_user.username %></b>
-        <%end%></p>
+      <%if logged_in?%>
+      You are Logged In as: <b><%= current_user.username %></b>
+      <%end%></p>
     <hr class="my-4">
     <p> What youre wanna to do: </p>
-    <ul>
-        <%if !logged_in?%>
-        <li><%= button_to "Sign In", '/users/new', method: :get%></li>
-        <li><%= button_to "Login", '/login', method: :get%></li>
-        <% else %>
-        <li><%= button_to "Logout", '/logout', method: :delete%></li>
-        <%end%>
-        <ul>
+    <ul class="list-unstyled">
+      <%if !logged_in?%>
+      <li><%= button_to "Sign In", '/users/new', method: :get%></li>
+      <li><%= button_to "Login", '/login', method: :get%></li>
+      <% else %>
+      <li><%= button_to "Logout", '/logout', method: :delete%></li>
+      <%end%>
+      <ul>
+  </div>
 </div>

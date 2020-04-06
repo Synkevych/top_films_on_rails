@@ -23,9 +23,9 @@
             <% end %>
 
             <% if !current_user.nil? %>
-            <%= button_to current_user.username, '/user', :method=> 'GET', class: 'btn btn-success my-2 my-sm-0'%>
+            <%= link_to current_user.username, '/welcome', :method=> 'GET', class: 'btn btn-success my-2 my-sm-0'%>
             <% else %>
-            <%= button_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
+            <%= link_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
             <% end %>
         </div>
 </nav>
