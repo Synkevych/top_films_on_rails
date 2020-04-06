@@ -1,13 +1,7 @@
-# frozen_string_literal: true
-
-# To save data we need create here some logic
-
 class ArticlesController < ApplicationController
   
   $comment_form_hidden = false
 
-
-  # здесь описаны екшены которые срабатывают автоматически при  
   def index
 
     if params.has_key? :search

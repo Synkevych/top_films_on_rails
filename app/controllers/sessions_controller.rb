@@ -1,6 +1,12 @@
 class SessionsController < ApplicationController
 skip_before_action :authorized, only: [:new, :create, :welcome]
+
+#before_action :set_default 
   
+#def set_default 
+#   session[:user_id] ||= 0
+#end
+
   def new
   end
 
@@ -8,7 +14,6 @@ skip_before_action :authorized, only: [:new, :create, :welcome]
     # use to 
     user = User
     .find_by(username: params[:username])
-   # .try(:authenticate, params["username"]["password"]
 
     if user && user.authenticate(params[:password])
         session[:user_id] = user.id 
@@ -20,7 +25,6 @@ skip_before_action :authorized, only: [:new, :create, :welcome]
   end
 
   def welcome
-    
   end
 
   def login

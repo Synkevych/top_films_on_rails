@@ -8,12 +8,17 @@
     <hr class="my-4">
     <p> What youre wanna to do: </p>
     <ul class="list-unstyled">
-      <%if !logged_in?%>
-      <li><%= button_to "Sign In", '/users/new', method: :get%></li>
-      <li><%= button_to "Login", '/login', method: :get%></li>
-      <% else %>
-      <li><%= button_to "Logout", '/logout', method: :delete%></li>
-      <%end%>
+      <li>
+        <%if !logged_in?%>
+        <%= link_to "Sign In", '/users/new', method: :get, class: "btn btn-info"%>
+        <%= link_to "Login", '/login', method: :get, class: "btn btn-info"%>
+      </li>
+      <li>
+        <% else %>
+        <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
+        <%= link_to "Profile", ('/user'), method: :get, class: "btn btn-info"%>
+        <%end%>
+      </li>
       <ul>
   </div>
 </div>

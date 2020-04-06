@@ -25,7 +25,7 @@
         <td><b><%= link_to article.title, article_path(article) %></b></td>
         <td><%= link_to article.text, article_path(article) %></td>
         <td><%= article.comments.size %></td>
-        <% if article.user_id == current_user.id || User.find(article.user_id).role == 'admin' then %>
+        <% if article.user_id == current_user.id || User.find(current_user.id).role == 'admin' then %>
         <td><%= link_to 'Edit', edit_article_path(article), class: "btn btn-info" %></td>
         <td><%= link_to 'x', article_path(article),
    method: :delete,

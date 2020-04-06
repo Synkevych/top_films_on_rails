@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
- resources :users, only: [:new, :create, :articles]
+ resources :users, only: [:new, :create, :welcome]
   
   get 'login', to: 'sessions#new'
 
@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   delete 'logout' => 'sessions#destroy'
 
-  post 'user', to: 'users#users'
+  post 'user', to: 'users#user'
+
+  get 'user', to: 'users#user'
 
   get 'home/index'
 
