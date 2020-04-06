@@ -1,7 +1,7 @@
-  <div class="card">
+  <div class="card mb-3">
     <div class="card-header"> <b> @<%= comment.commenter %>
       </b>
-      <%= comment.created_at.strftime(" %m.%d.%Y") %>
+      <%= comment.created_at.strftime("%H:%M  %m.%d.%Y ") %>
     </div>
     <div class="card-body">
 
@@ -9,7 +9,7 @@
         <%= comment.body %>
       </div>
       <br />
-      <% if !current_user.nil?  then %>
+      <% if comment.commenter == User.find(current_user.id).username || User.find(@article.user_id).role == 'admin' then %>
       <%= link_to 'Remove', [comment.article, comment],
                method: :delete,
                data: { confirm: 'Are you sure?' },

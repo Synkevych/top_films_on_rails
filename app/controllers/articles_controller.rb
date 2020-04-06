@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   
   $comment_form_hidden = false
 
+
   # здесь описаны екшены которые срабатывают автоматически при  
   def index
 
@@ -34,10 +35,10 @@ class ArticlesController < ApplicationController
 
 
   def create
-    @user_id = session[:id]
-    
-     @article = @user.articles.new(article_params )
-     #@article = Article.new(article_params )
+     @user_id = params[:article][:user_id]
+
+     @article = Article.new(article_params )
+     @article.user_id = @user_id
 
     if @article.save
       redirect_to @article
@@ -57,9 +58,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    #  проверка перед удалением на ошибки 
 
     @article = Article.find(params[:id])
+
     if  @article.errors.present?
       throw(:abort) 
     else

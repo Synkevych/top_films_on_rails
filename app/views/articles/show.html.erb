@@ -1,34 +1,42 @@
-<div class="card bg-light m-auto" style="min-width: 22rem;">
+<div class="col">
+  <div class="card bg-light mb-3"" style=" min-width: 22rem;">
 
     <div class="card-header">Article № <%= @article.id %></div>
 
     <div class="card-body">
-        <h5 class="card-title">Title:
-            <%= @article.title %>
-        </h5>
-        <p class="card-text">Text:
-            <%= @article.text %>
-        </p>
-        <div class="mb-2">
-            <% if !current_user.nil?  then %>
-            <%= link_to  "Delete", article_path(@article),
-   method: :delete,
-   data: { confirm: 'Are you sure?'},
-   class: "btn btn-danger" %>
-            <%= link_to  "Edit", edit_article_path(@article), class: "btn btn-info" %>
-            <% end %>
-            <%= link_to  "View All", articles_path, class: "btn btn-secondary" %>
-        </div>
-
-        <% if !@article.comments.empty?  then %>
-        <div class="card m-auto">
-            <div class="card-header bg-info">Comments</div>
-            <%= render @article.comments %>
-        </div>
+      <h5 class="card-title">Title:
+        <%= @article.title %>
+      </h5>
+      <p class="card-text">Text:
+        <%= @article.text %>
+      </p>
+      <p>
+        <% if @article.user_id == current_user.id || User.find(@article.user_id).role == 'admin' then %>
+        <%= link_to  "Delete", article_path(@article),
+                 method: :delete,
+                 data: { confirm: 'Are you sure?'},
+                class: "btn btn-danger" %>
+        <%= link_to  "Edit", edit_article_path(@article), class: "btn btn-info" %>
         <% end %>
-        <% if !current_user.nil?  then %>
-        <%= render 'comments/form' %>
-        <% end %>
+        <%= link_to  "View All", articles_path, class: "btn btn-secondary" %>
 
+      </p>
     </div>
+    <div class="card-footer text-muted">
+      <b>
+        @<%= User.find(@article.user_id).username %>
+      </b>
+      <%= @article.created_at.strftime(" %m.%d.%Y") %>
+    </div>
+  </div>
+
+  <% if !@article.comments.empty?  then %>
+  <div class="card ml-4">
+    <div class="card-header bg-info">Comments</div>
+    <%= render @article.comments %>
+    <% end %>
+    <% if !current_user.nil?  then %>
+    <%= render 'comments/form' %>
+    <% end %>
+  </div>
 </div>

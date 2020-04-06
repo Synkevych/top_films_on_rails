@@ -15,6 +15,10 @@
 </div>
 <% end %>
 
+<% if current_user %>
+  <%= form.hidden_field :user_id, value: current_user.id, class: "form-control"%>
+<% end %>
+
 <div class="card-body text-white">
   <%= form.label :title %>
   <%= form.text_field :title, class: "form-control" %>
@@ -24,10 +28,6 @@
   <%= form.label :text %>
   <%= form.text_area :text, class: "form-control" %>
 </div>
-<% if current_user %>
-    User ID:<%= current_user.id %>
-<%= form.hidden_field :user_id, value: current_user.id%>
-<% end %>
 
 <div class="card-body">
   <%= submit_tag 'Submit', class: 'btn btn-primary' %>
