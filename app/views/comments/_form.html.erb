@@ -18,9 +18,9 @@
   <% end %>
 
   <div class="card-body">
-    <%#= form.label :commenter %><br>
-    <%#= form.text_field :commenter, value: (current_user.nil? ? 'default' : current_user.username), class: "form-control" %>
-    <%# if current_user %>
+    <% if current_user.avatar.attached? %>
+    <%= image_tag current_user.avatar, alt: 'avatar', class:'avatar'%>
+    <%end %>
     @<%= current_user.username %>
     <%= form.hidden_field :commenter, value: current_user.username%>
     <%# end %>
