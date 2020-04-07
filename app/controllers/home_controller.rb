@@ -43,8 +43,6 @@ class HomeController < ApplicationController
       # @output_JSON = @result
     end
 
-    get_popular_films
-
     def searching
       @film_name = params[:search_request]
       if params[:top_films] == ''
