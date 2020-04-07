@@ -3,5 +3,6 @@ class User < ApplicationRecord
   validates_presence_of :username
   validates_uniqueness_of :username
   attribute :role, :string, default: 'user'
-  has_many :aticles
+  has_many :aticles, dependent: :destroy
+  has_one_attached :avatar
 end

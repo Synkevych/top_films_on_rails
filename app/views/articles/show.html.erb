@@ -7,6 +7,11 @@
       <h5 class="card-title">Title:
         <%= @article.title %>
       </h5>
+      <% if @article.image.attached? then %>
+      <div class="card-img-top">
+        <%= image_tag @article.image, class: 'main-image' %>
+      </div>
+      <% end %>
       <p class="card-text">Text:
         <%= @article.text %>
       </p>

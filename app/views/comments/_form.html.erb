@@ -3,6 +3,20 @@
 
   <%= form_with(model: [@article, @article.comments.build ], local: true ) do |form| %>
 
+  <% if @article.errors.any? %>
+  <div class="alert alert-danger" id="error_explanation" role="alert">
+    <h2>
+      <%= pluralize(@article.errors.count, "error") %> prohibited
+      this article from being saved:
+    </h2>
+    <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
   <div class="card-body">
     <%#= form.label :commenter %><br>
     <%#= form.text_field :commenter, value: (current_user.nil? ? 'default' : current_user.username), class: "form-control" %>

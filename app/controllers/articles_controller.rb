@@ -29,10 +29,10 @@ class ArticlesController < ApplicationController
 
 
   def create
-     @user_id = params[:article][:user_id]
+    # @user_id = params[:article][:user_id]
 
      @article = Article.new(article_params )
-     @article.user_id = @user_id
+    # @article.user_id = @user_id
 
     if @article.save
       redirect_to @article
@@ -66,6 +66,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :text)
+    params.require(:article).permit(:title, :image, :text, :user_id)
   end
 end
