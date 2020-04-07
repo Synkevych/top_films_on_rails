@@ -1,6 +1,6 @@
 # README
 
-## Yay! This project deployed on [Heroku](https://ancient-bayou-55245.herokuapp.com/)
+## Yay! This project deployed on [Heroku](https://still-island-36889.herokuapp.com)
 
 Ruby version: 2.6.5/2.6.3  
 If you wanna do something, first set you task to list!  
@@ -83,7 +83,10 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+`heroku apps: destroy app1` - destroy your app at the heroku  
+`heroku git:remote -a app2` - change the app from app1 to app2  
 
+`heroku run rake db:migrate`
 * ...
 
 ### Starting up the Web Server
