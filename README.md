@@ -132,6 +132,10 @@ Things you may want to cover:
 > rename **gem 'sqlite3'** to **gem 'pg'**  
 > run: bundler install  
 > bundle exec rails webpacker:install  
+> heroku pg:reset DATABASE --confirm YOUR_APP_NAME
+> heroku run rake db:setup
+> `heroku restart` after running `pg:reset`  
+> heroku open
 
 ---
 

@@ -8,7 +8,7 @@ development:
   database: pg_test_development
   username: postgres
   password: postgres
-  port: 5434
+  port: 5432
 
 test:
   <<: *default
