@@ -134,6 +134,7 @@ Things you may want to cover:
 > bundle exec rails webpacker:install  
 > heroku pg:reset DATABASE --confirm YOUR_APP_NAME
 > heroku run rake db:setup
+> heroku run rake db:migrate
 > `heroku restart` after running `pg:reset`  
 > heroku open
 
