@@ -8,28 +8,12 @@ After the merge it's save to delete the branch: `$ git branch -d branch1`
 To prettify Ruby text inside Sublime: 
 highlight all code and type Ctrl + Shift + H  / Alt + Shift + F in VSCode  
 [How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)  
-Use [cloudinary](https://cloudinary.com/) to save photo for free
-
 
 ### Tasks
 
-1. [x] Search form
-2. [x] Popular movies at the home page
-3. [x] Bootstrap for Server Side Rendering
-4. [x] Link to the button Details
-5. [x] Deploy to heroku
-6. [x] Change search page and url
-7. [x] Chage Database from sqlite3 to PostgreSQL
-
----
-
-1. Change [Link] to [Top_Rated_Movie] (of all time)
-1. Change *top_films_path* to the more useful
-1. Shorten movie descriptions to 200 characters
-1. Shorten the image
-1. Remove "Coronavirus" message on search page
-1. Link [About] (add them to the *helpers* folder)
-1. Change [Home] link from *localhost* to the \#
+1. Remove image if article deleted  
+1. Show error message for user & comment form
+1. Change logic of cheking user image
 
 ---
 
@@ -39,11 +23,13 @@ If you're clonning this repo to install all Rails gems localy type:
 
 > bundle install
 
-### Tools to work with project
+### Other tools to work with project
 
 > <https://github.com/tulios/json-viewer>  
 > <https://developers.themoviedb.org/3/movies>  
 > <https://github.com/DavidAnson/vscode-markdownlint>  
+> [cloudinary](https://cloudinary.com/) to save photo for free
+> Active Record  
 
 ---
 
@@ -88,7 +74,6 @@ Things you may want to cover:
 `heroku git:remote -a app2` - change the app from app1 to app2  
 
 `heroku run rake db:migrate`
-* ...
 
 ### Starting up the Web Server
 
@@ -109,8 +94,7 @@ Things you may want to cover:
 > rails webpacker  
 > install yarn  
 > npm install yarn -g  
-
->  rails new my_pg_app -d postgresql --- to create new project with PostgreSQL database
+> rails new my_pg_app -d postgresql --- to create new project with PostgreSQL database
 > bundler install > after updating some gems  
 > git restore -s  postgres -- .\README.md  
 > to show your db on pdAdmin connect to them with username and passwor which you created earlier
@@ -174,7 +158,7 @@ Create model for command: `rails generate model Comment commenter:string body:te
 
 Run migration: `rails db:migrate`. They create all new tables and columns.  
 
-### Work with Rails Database / Model 
+### Work with Rails Database / Model
 
 `rake db:migrate` - checks which missing migrations still need to be applied to the database without caring about the previouse ones.  
 `id, created_at, updated_at` was created by default for each ActiveRecord model.  
@@ -199,3 +183,61 @@ Routing and Controllers
 * :url опция которая используется если нужно вести по специальному url
 * plain: ключ который принимает метод render 
 * params - метод, это объект, представляющий параметры (или поля), приходящие от формы. принимающий
+
+### How to use Cloudinary
+
+* Create account
+* Add gem `gem 'cloudinary'` to Gemfile
+* Copy `cloudinary.yml` with sitting from cloudinary site to the  _config_ folder
+* Create migration, you need add to User model string column avatar
+
+```ruby
+  def change
+        add_column :users, :avatar, :string
+  end
+```
+
+* Run migration `rake db:migrate`
+* Add to User model new string
+
+```ruby
+  attribute :avatar, default: 'https://res.cloudinary.com/demo/image/upload/d_avatar.png/non_existing_id.png'
+```
+
+* Change your User controller
+
+```ruby
+ def create_new_img(new_img)
+    new_img_url = Cloudinary::Uploader.upload( new_img )
+ end
+
+def create  
+  @user = User.create!( user_param)
+
+  if !params[:user][:avatar].nil?
+    new_img_url =  create_new_img(params[:user][:avatar])
+    @user.update(:avatar => new_img_url['url'] )
+  end
+
+  @user.save
+end
+```
+
+* Add to form image
+
+```ruby
+<li>
+  <%= form.label :avatar %>
+  <%= form.file_field :avatar %>
+</li>
+```
+
+* Render your image at the form
+
+```ruby
+<% if !@article.image.nil? then %>
+  <div class="card-img mb-2">
+    <%= image_tag @article.image, class: 'rounded img-fluid' %>
+  </div>
+<% end %>
+```
