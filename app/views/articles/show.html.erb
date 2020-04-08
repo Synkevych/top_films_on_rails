@@ -28,7 +28,7 @@
       </p>
     </div>
     <div class="card-footer text-muted">
-      <% user = User.find(@article.user_id); if user.avatar.attached? %>
+      <% user = User.find(@article.user_id); if !user.avatar.nil? %>
       <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
       <%end %>
       <b>

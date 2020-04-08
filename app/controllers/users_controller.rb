@@ -18,11 +18,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end 
 
+  def create_img(img_file)
+    if !img_file.nil?
+      @value = Cloudinary::Uploader.upload(img_file)
+    end
+
+  end
+
+
   def create
-
-    @value = Cloudinary::Uploader.upload(params[:user][:avatar])
-
-    @user = User.create!(params[:user][:username][:password], :avatar => @value['url'])
+    
+    @user = User.create!( user_param)
     
     @user.save
     #@user = User.create!(user_param)
@@ -39,12 +45,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update(user_param)
+    
+ 
+    current_user.update(params[:user][:username][:password], :avatar_url => create_img(params[:user][:avatar]['url']))
+    # cl_image_tag("hw17tqpdnliid6ltrism.png")
+    
     redirect_to '/welcome'
 
   end 
 
   def user_param
-    params.require(:user).permit(:username, :password, :avatar)
+    params.require(:user).permit(:username, :password )
   end
 end
