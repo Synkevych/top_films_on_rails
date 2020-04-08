@@ -15,6 +15,12 @@ class ArticlesController < ApplicationController
       end
   end
   
+  def create_new_img(new_img)
+    
+    new_img_url = Cloudinary::Uploader.upload( new_img )
+  
+  end
+
   def show
     @article = Article.find(params[:id])
   end
@@ -32,6 +38,10 @@ class ArticlesController < ApplicationController
     # @user_id = params[:article][:user_id]
 
      @article = Article.new(article_params )
+     if !params[:article][:image].nil?
+      new_img_url =  create_new_img(params[:article][:image])
+      @article.update(:image => new_img_url['url'] )
+     end
     # @article.user_id = @user_id
 
     if @article.save
@@ -66,6 +76,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :image, :text, :user_id)
+    params.require(:article).permit(:title, :text, :user_id)
   end
 end

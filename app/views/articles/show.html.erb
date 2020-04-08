@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-      <% if @article.image.attached? then %>
+      <% if !@article.image.nil? then %>
       <div class="card-img mb-2">
         <%= image_tag @article.image, class: 'main-image' %>
       </div>

@@ -7,7 +7,9 @@ If you wanna do something, first set you task to list!
 After the merge it's save to delete the branch: `$ git branch -d branch1`
 To prettify Ruby text inside Sublime: 
 highlight all code and type Ctrl + Shift + H  / Alt + Shift + F in VSCode  
-[How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)
+[How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)  
+Use [cloudinary](https://cloudinary.com/) to save photo for free
+
 
 ### Tasks
 

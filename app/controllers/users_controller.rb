@@ -18,51 +18,51 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end 
 
-  def create_img(img_file)
-    if !img_file.nil?
-      @value = Cloudinary::Uploader.upload(img_file)
-    end
 
+  def create_new_img(new_img)
+    
+    new_img_url = Cloudinary::Uploader.upload( new_img )
+  
   end
 
 
   def create
+
     
     @user = User.create!( user_param)
     
+    if !params[:user][:avatar].nil?
+      new_img_url =  create_new_img(params[:user][:avatar])
+      @user.update(:avatar => new_img_url['url'] )
+    end
+    
     @user.save
-    #@user = User.create!(user_param)
 
     session[:user_id]= @user.id
 
     if @user
-        redirect_to '/welcome'
+      redirect_to '/welcome'
     
-      else
+    else
       redirect_to '/users/new'
     end
     
   end
 
   def update
+        
+    if !params[:user][:avatar].nil?
+      new_img_url =  create_new_img(params[:user][:avatar])
+      current_user.update(:avatar => new_img_url['url'] )
     
-    @ava = params[:user][:avatar]
-
-    # if @ava.nil?
-      # @value = Cloudinary::Uploader.upload(@ava)
+    end
       current_user.update(user_param)
-    # else 
-    #   current_user.update({user_param, :avatar => @ava['url']})
-
-    # end
-
-    # cl_image_tag("hw17tqpdnliid6ltrism.png")
     
     redirect_to '/welcome'
 
   end 
 
   def user_param
-    params.require(:user).permit(:username, :password, :avatar)
+    params.require(:user).permit(:username, :password )
   end
 end
