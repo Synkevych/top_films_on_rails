@@ -2,9 +2,9 @@
   <div class="card bg-light mb-3"" style=" min-width: 22rem;">
 
     <div class="card-header"> <b>
-    <%= @article.title %>
+        <%= @article.title %>
       </b>
-      </div>
+    </div>
 
     <div class="card-body">
       <% if @article.image.attached? then %>
@@ -16,7 +16,7 @@
         <%= @article.text %>
       </p>
       <p>
-        <% if @article.user_id == current_user.id || User.find(current_user.id).role == 'admin' then %>
+        <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id || User.find(user_id).role == 'admin' then %>
         <%= link_to  "Delete", article_path(@article),
                  method: :delete,
                  data: { confirm: 'Are you sure?'},
