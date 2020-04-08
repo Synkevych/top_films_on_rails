@@ -6,7 +6,7 @@
       You are Logged In as: <b><%= current_user.username %></b>
       <div class="user">
         <div class="avarar">
-          <% if current_user.avatar.attached? %>
+          <% if current_user.avatar %>
           <%= image_tag current_user.avatar, alt: 'avatar',class:'avatar'%>
           <%end %>
         </div>

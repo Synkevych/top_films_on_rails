@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
+gem 'carrierwave'
+gem 'cloudinary'
 gem 'json', '~> 2.3'
 
 group :development, :test do

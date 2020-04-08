@@ -2,11 +2,12 @@ class UsersController < ApplicationController
 
   skip_before_action :authorized, only: [:new, :create]
   
+
   def show
    @user = User.find(params[:id])
 
  end
- 
+
   def new
 
     @user = User.new
@@ -18,7 +19,13 @@ class UsersController < ApplicationController
   end 
 
   def create
-    @user = User.create!(user_param)
+
+    @value = Cloudinary::Uploader.upload(params[:user][:avatar])
+
+    @user = User.create!(params[:user][:username][:password], :avatar => @value['url'])
+    
+    @user.save
+    #@user = User.create!(user_param)
 
     session[:user_id]= @user.id
 
