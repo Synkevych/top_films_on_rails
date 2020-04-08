@@ -9,7 +9,7 @@
     <div class="card-body">
       <% if !@article.image.nil? then %>
       <div class="card-img mb-2">
-        <%= image_tag @article.image, class: 'main-image' %>
+        <%= image_tag @article.image, class: 'rounded img-fluid' %>
       </div>
       <% end %>
       <p class="card-text">
