@@ -1,31 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Postagram </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/articles">Articles</a>
-      </li>
-    </ul>
-
-      <% if !current_user.nil? %>
-      <%= link_to current_user.username, '/welcome', :method=> 'GET', class: 'btn btn-success my-2 my-sm-0'%>
-      <div class="user ml-2 ">
-        <div class="avarar">
-          <% if !current_user.avatar.nil? %>
-          <%= image_tag current_user.avatar, alt: 'avatar', class:'avatar'%>
-          <%end %>
+    <a class="navbar-brand" href="/">Postagram </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/articles">Articles</a>
+            </li>
+        </ul>
+        <% if !current_user.nil? %>
+        <%= link_to current_user.username, '/welcome', :method=> 'GET', class: 'btn btn-success my-2 my-sm-0'%>
+        <div class="user ml-2 ">
+            <div class="avarar">
+                <% if !current_user.avatar.nil? %>
+                <%= image_tag current_user.avatar, alt: 'avatar', class:'avatar'%>
+                <%end %>
+            </div>
         </div>
-      </div>
-      <% else %>
-      <%= link_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
-      <% end %>
-  </div>
+        <% else %>
+        <%= link_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
+        <% end %>
+    </div>
 </nav>

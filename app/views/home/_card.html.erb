@@ -1,13 +1,20 @@
- <% @output['results'].each do |film| %>
- <div class="card m-3" style="width: 20rem;">
-     <img class="card-img-top" src="<%= $IMG_URL + film['poster_path'].to_s   %>" alt="Card image cap">
-     <div class="card-body">
-         <h5 class="card-title"><%= film['title'] %></h5>
-         <hr class="my-4">
-         <h5 class="card-text">Rating: <b><%= film['vote_average'] %></b></h5>
-         <p class="card-text"><%= film['overview'] %></p>
-         <p class="card-text">Date release: <%= film['release_date'] %></p>
-         <a href="<%= @button_url= $DOMEN + 'movie/' + film['id'].to_s + '?' +$API_KEY %>" class="btn btn-primary ">Details</a>
-     </div>
- </div>
- <% end %>
+<% @output['results'].each do |film| %>
+<div class="card m-3" style="width: 20rem;">
+    <img class="card-img-top" src="<%= $IMG_URL + film['poster_path'].to_s   %>" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= film['title'] %>
+        </h5>
+        <hr class="my-4">
+        <h5 class="card-text">Rating: <b>
+                <%= film['vote_average'] %></b></h5>
+        <p class="card-text">
+            <%= film['overview'] %>
+        </p>
+        <p class="card-text">Date release:
+            <%= film['release_date'] %>
+        </p>
+        <a href="<%= @button_url= $DOMEN + 'movie/' + film['id'].to_s + '?' +$API_KEY %>" class="btn btn-primary ">Details</a>
+    </div>
+</div>
+<% end %>

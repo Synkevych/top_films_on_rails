@@ -1,68 +1,56 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
-  skip_before_action :authorized, only: [:new, :create]
-  
+class UsersController < ApplicationController
+  skip_before_action :authorized, only: %i[new create]
 
   def show
-   @user = User.find(params[:id])
-
+    @user = User.find(params[:id])
  end
 
   def new
-
     @user = User.new
-
   end
 
   def edit
     @user = User.find(params[:id])
-  end 
-
-
-  def create_new_img(new_img)
-    
-    new_img_url = Cloudinary::Uploader.upload( new_img )
-  
   end
 
+  def create_new_img(new_img)
+    new_img_url = Cloudinary::Uploader.upload(new_img)
+  end
 
   def create
+    @user = User.create!(user_param)
 
-    
-    @user = User.create!( user_param)
-    
-    if !params[:user][:avatar].nil?
-      new_img_url =  create_new_img(params[:user][:avatar])
-      @user.update(:avatar => new_img_url['url'] )
+    unless params[:user][:avatar].nil?
+      new_img_url = create_new_img(params[:user][:avatar])
+      @user.update(avatar: new_img_url['url'])
     end
-    
+
     @user.save
 
-    session[:user_id]= @user.id
+    session[:user_id] = @user.id
 
     if @user
       redirect_to '/welcome'
-    
+
     else
       redirect_to '/users/new'
     end
-    
   end
 
   def update
-        
-    if !params[:user][:avatar].nil?
-      new_img_url =  create_new_img(params[:user][:avatar])
-      current_user.update(:avatar => new_img_url['url'] )
-    
-    end
-      current_user.update(user_param)
-    
-    redirect_to '/welcome'
+    unless params[:user][:avatar].nil?
+      new_img_url = create_new_img(params[:user][:avatar])
+      current_user.update(avatar: new_img_url['url'])
 
-  end 
+    end
+    current_user.update(user_param)
+
+    redirect_to '/welcome'
+  end
 
   def user_param
-    params.require(:user).permit(:username, :password )
+    params.require(:user).permit(:username, :password)
   end
 end

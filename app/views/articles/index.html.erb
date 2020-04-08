@@ -1,48 +1,62 @@
-    <form class=" m-auto">
-      <div class="form-row">
+<form class=" m-auto">
+    <div class="form-row">
         <%= form_with(url: articles_path, method: "get", local: true) do |form| %>
-        <div> <%= form.text_field :search, :value => @search, autofocus: true, placeholder: "Search by title", class: "form-control mr-sm-2"%></div>
-        <div> <%= form.submit "Search", :name => "", class: "btn btn-outline-primary my-2 my-sm-0" %></div>
+        <div>
+            <%= form.text_field :search, :value => @search, autofocus: true, placeholder: "Search by title", class: "form-control mr-sm-2"%>
+        </div>
+        <div>
+            <%= form.submit "Search", :name => "", class: "btn btn-outline-primary my-2 my-sm-0" %>
+        </div>
         <% end %>
         <% if logged_in? %>
-        <div class="col-auto"><%= link_to 'New Article', new_article_path, class: "btn btn-success"%></div>
+        <div class="col-auto">
+            <%= link_to 'New Article', new_article_path, class: "btn btn-success"%>
+        </div>
         <% end %>
-      </div>
-    </form>
-    <table class="table mt-4">
-      <tr>
+    </div>
+</form>
+<table class="table mt-4">
+    <tr>
         <th scope="col">id</th>
         <th scope="col">Label</th>
         <th scope="col">Text</th>
         <th scope="col">Comment</th>
         <th scope="col"></th>
         <th scope="col"></th>
-      </tr>
-
-      <% @articles.sort.each do |article| %>
-      <tr>
-        <th scope="row"><%= article.id %></th>
+    </tr>
+    <% @articles.sort.each do |article| %>
+    <tr>
+        <th scope="row">
+            <%= article.id %>
+        </th>
         <td>
-          <b>
-            <%= link_to article.title, article_path(article) %>
-          </b>
+            <b>
+                <%= link_to article.title, article_path(article) %>
+            </b>
         </td>
-        <td><%= link_to article.text, article_path(article) %></td>
-        <td><%= article.comments.size %></td>
+        <td>
+            <%= link_to article.text, article_path(article) %>
+        </td>
+        <td>
+            <%= article.comments.size %>
+        </td>
         <% user_id = current_user.nil? || current_user.id; if article.user_id == user_id || User.find(user_id).role == 'admin' then %>
-        <td><%= link_to 'Edit', edit_article_path(article), class: "btn btn-info" %></td>
-        <td><%= link_to 'x', article_path(article),
+        <td>
+            <%= link_to 'Edit', edit_article_path(article), class: "btn btn-info" %>
+        </td>
+        <td>
+            <%= link_to 'x', article_path(article),
    method: :delete,
    data: { confirm: 'Are you sure?'},
-   class: "btn btn-danger" %></td>
+   class: "btn btn-danger" %>
+        </td>
         <% else %>
         <td></td>
         <td></td>
         <% end %>
-      </tr>
-      <% end %>
-    </table>
-
-    <% if false then %>
-    <%= render  "articles/pagination" %>
+    </tr>
     <% end %>
+</table>
+<% if false then %>
+<%= render  "articles/pagination" %>
+<% end %>

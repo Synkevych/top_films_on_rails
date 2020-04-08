@@ -14,6 +14,9 @@ highlight all code and type Ctrl + Shift + H  / Alt + Shift + F in VSCode
 1. Remove image if article deleted  
 1. Show error message for user & comment form
 1. Change logic of cheking user image
+1. Pagination for more than 10 post
+1. After click user name show user page with all his posts
+1. More info about user
 
 ---
 
@@ -83,6 +86,7 @@ Things you may want to cover:
 > rails generate controller Welcome index  
 > the controller located *app/controllers/welcome_controller.rb*  
 > the view *app/view/welcome/index.html.erb*  
+> `<%= debug(params) if Rails.env.development? %>` to display dubug inforamtion
 
 ---
 
@@ -124,6 +128,7 @@ Things you may want to cover:
 > heroku run rake db:migrate
 > `heroku restart` after running `pg:reset`  
 > heroku open
+> heroku run rails console
 
 ---
 

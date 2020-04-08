@@ -1,24 +1,22 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
-  
   $comment_form_hidden = false
 
   def index
-
-    if params.has_key? :search
+    if params.key? :search
       @search = params[:search]
-      @articles = Article.where("lower(title) like ?", "%#{@search.downcase}%")
-      if @articles.size < 1 
-        @articles = Article.where("lower(text) like ?", "%#{@search.downcase}%")
+      @articles = Article.where('lower(title) like ?', "%#{@search.downcase}%")
+      if @articles.empty?
+        @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
       end
     else
-        @articles = Article.all
+      @articles = Article.all
       end
   end
-  
+
   def create_new_img(new_img)
-    
-    new_img_url = Cloudinary::Uploader.upload( new_img )
-  
+    new_img_url = Cloudinary::Uploader.upload(new_img)
   end
 
   def show
@@ -33,16 +31,13 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-
   def create
-    # @user_id = params[:article][:user_id]
+    @article = Article.new(article_params)
 
-     @article = Article.new(article_params )
-     if !params[:article][:image].nil?
-      new_img_url =  create_new_img(params[:article][:image])
-      @article.update(:image => new_img_url['url'] )
-     end
-    # @article.user_id = @user_id
+    unless params[:article][:image].nil?
+      new_img_url = create_new_img(params[:article][:image])
+      @article.update(image: new_img_url['url'])
+    end
 
     if @article.save
       redirect_to @article
@@ -62,11 +57,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-
     @article = Article.find(params[:id])
 
-    if  @article.errors.present?
-      throw(:abort) 
+    if @article.errors.present?
+      throw(:abort)
     else
       @article.destroy
       redirect_to articles_path

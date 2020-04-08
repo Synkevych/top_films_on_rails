@@ -1,27 +1,26 @@
-    <div class="col text-center">
-      <div class="jumbotron w-50 m-auto">
+<div class="col text-center">
+    <div class="jumbotron w-50 m-auto">
         <h3 class="display-5">Profile:</h3>
         <p class="lead">
-          <%if logged_in?%>
-          Hello, <b><%= current_user.username %></b>
-          <%end%></p>
+            <%if logged_in?%>
+            Hello, <b>
+                <%= current_user.username %></b>
+            <%end%>
+        </p>
         <hr class="my-4">
         <p> All the information we have about you: </p>
-
         <%= form_with(model: @user, local: true) do |form| %>
-
         <div class="card-body ">
-          <%= form.hidden_field :id, value: current_user.id%>
-          <%= form.label :username %>
-          <%= form.text_field :username, value: User.find(current_user.id).username, class: "form-control mb-4" %>
-          <%= form.label :avatar, 'Select your avatar' %>
-          <%= form.file_field :avatar, class: '' %>
+            <%= form.hidden_field :id, value: current_user.id%>
+            <%= form.label :username %>
+            <%= form.text_field :username, value: User.find(current_user.id).username, class: "form-control mb-4" %>
+            <%= form.label :avatar, 'Select your avatar' %>
+            <%= form.file_field :avatar, class: '' %>
         </div>
         <div class="m-auto">
-          <%= form.submit "Change",  class: "btn btn-primary"%>
-          <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
+            <%= form.submit "Change",  class: "btn btn-primary"%>
+            <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
         </div>
         <% end %>
-
-      </div>
     </div>
+</div>
