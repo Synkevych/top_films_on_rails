@@ -15,7 +15,7 @@
           <%= form.label :username %>
           <%= form.text_field :username, value: User.find(current_user.id).username, class: "form-control" %>
           <%= form.label :avatar %>
-          <%= form.file_field :avatar, class: '' %>
+          <%= form.file_field :avatar, direct_upload: true %>
         </div>
         <div class="m-auto">
           <%= form.submit "Change",  class: "btn btn-primary"%>

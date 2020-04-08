@@ -20,3 +20,4 @@ require("channels")
 //= require popper
 //= require bootstrap-sprockets
 
+//= require activestorage

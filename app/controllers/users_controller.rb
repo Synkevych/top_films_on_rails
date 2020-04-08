@@ -46,8 +46,16 @@ class UsersController < ApplicationController
 
   def update
     
- 
-    current_user.update(params[:user][:username][:password], :avatar_url => create_img(params[:user][:avatar]['url']))
+    @ava = params[:user][:avatar]
+
+    # if @ava.nil?
+      # @value = Cloudinary::Uploader.upload(@ava)
+      current_user.update(user_param)
+    # else 
+    #   current_user.update({user_param, :avatar => @ava['url']})
+
+    # end
+
     # cl_image_tag("hw17tqpdnliid6ltrism.png")
     
     redirect_to '/welcome'
@@ -55,6 +63,6 @@ class UsersController < ApplicationController
   end 
 
   def user_param
-    params.require(:user).permit(:username, :password )
+    params.require(:user).permit(:username, :password, :avatar)
   end
 end
