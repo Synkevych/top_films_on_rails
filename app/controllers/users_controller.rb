@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: %i[new create]
 
   def show
+    @user = User.find(params[:id])
   end
 
   def new
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def create
