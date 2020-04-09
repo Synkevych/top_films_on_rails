@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action: :set_article
+  #before_action :set_article
 
   # def search_by_text(text)
   #   @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
@@ -24,6 +24,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    get_article(params[:id])
   end
 
   def new
@@ -31,6 +32,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+     get_article(params[:id])
   end
 
   def create
@@ -47,6 +49,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    get_article(params[:id])
+
     if @article.update(article_params)
       redirect_to @article
     else
@@ -68,12 +72,11 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
-  private
-
-  def set_article
-    @article = Article.find(params[:id])
+  def get_article(params)
+    @article = Article.find(params)
   end
 
+  private
   def article_params
     params.require(:article).permit(:title, :text, :user_id)
   end

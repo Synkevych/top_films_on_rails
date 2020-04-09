@@ -1,7 +1,9 @@
     <div class="container">
+      <%if !logged_in? then %>
       <%= render 'home/container' %>
+      <% end %>
       <div class=" mx-auto">
         <%= render 'home/card' %>
-      
+
       </div>
     </div>

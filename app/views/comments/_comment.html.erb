@@ -1,8 +1,7 @@
   <div class="card">
     <div class="card-header">
-      <% user = User.find_by(username: comment.commenter); if !user.avatar.nil? %>
+      <% user = User.find_by(username: comment.commenter) %>
       <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-      <%end %>
       <b> @<%= comment.commenter %>
       </b>
       <%#= comment.created_at.strftime("%H:%M  %m.%d.%Y ") %>
@@ -15,7 +14,7 @@
       </div>
       <br />
       <% if !current_user.nil? then %>
-      <% user_id = current_user.id; if (comment.commenter == User.find(user_id).username) || User.find(user_id).role == 'admin' then %>
+      <% if (comment.commenter == user.username) || user.role == 'admin' then %>
       <%= link_to 'Remove', [comment.article, comment],
                method: :delete,
                data: { confirm: 'Are you sure?' },

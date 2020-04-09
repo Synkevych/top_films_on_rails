@@ -7,4 +7,3 @@ class Article < ApplicationRecord
   
   validates :image, presence: true
 end
-

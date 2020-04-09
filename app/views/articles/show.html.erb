@@ -16,6 +16,7 @@
         <%= @article.text %>
       </p>
       <p>
+
         <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id || User.find(user_id).role == 'admin' then %>
         <%= link_to  "Delete", article_path(@article),
                  method: :delete,
@@ -28,13 +29,13 @@
       </p>
     </div>
     <div class="card-footer text-muted">
-      <% user = User.find(@article.user_id); if !user.avatar.nil? %>
+      <% user = User.find(@article.user_id) %>
       <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-      <%end %>
+
       <b>
-        @<%= User.find(@article.user_id).username %>
+        @<%= user.username %>
       </b>
-      <%= @article.created_at.strftime(" %m.%d.%Y") %>
+      <%= time_ago_in_words(@article.created_at) %>
     </div>
   </div>
 

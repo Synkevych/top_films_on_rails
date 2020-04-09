@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  skip_before_action :set_user, :authorized, only: %i[new create]
+  skip_before_action :authorized, only: %i[new create]
 
   def show
   end
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    # проверить роль admin или user  иначе давать ошибку
     @user = User.create!(user_param)
 
     unless params[:user][:avatar].nil?
