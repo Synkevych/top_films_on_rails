@@ -250,3 +250,8 @@ end
   </div>
 <% end %>
 ```
+
+### Ruby Default Web Server
+
+> bundle exec rackup
+> 
