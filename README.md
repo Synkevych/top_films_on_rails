@@ -129,8 +129,8 @@ Things you may want to cover:
 > `heroku restart` after running `pg:reset`  
 > heroku open
 > heroku run rails console
-> $ heroku apps:errors
-
+> heroku apps:errors
+> heroku logs
 ---
 
 ### Create useful git messages
