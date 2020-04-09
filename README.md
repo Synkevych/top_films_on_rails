@@ -130,7 +130,8 @@ Things you may want to cover:
 > heroku open
 > heroku run rails console
 > heroku apps:errors
-> heroku logs
+> [heroku logs](https://devcenter.heroku.com/articles/heroku-cli-commands)
+
 ---
 
 ### Create useful git messages

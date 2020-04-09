@@ -62,9 +62,14 @@ class ArticlesController < ApplicationController
     if @article.errors.present?
       throw(:abort)
     else
-      @article.destroy
-      redirect_to articles_path
+      if @article.destroy
+        flash[:success] = "Successfully deleted!"
+      else
+        flash[:error] = "Something went wrong, the acticle wasn't deleted"
+      end
     end
+    
+    redirect_to articles_path
   end
 
   private
