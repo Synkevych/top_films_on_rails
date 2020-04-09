@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  $comment_form_hidden = false
+  before_action: :set_article
+
+  # def search_by_text(text)
+  #   @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
+  # end
 
   def index
     if params.key? :search
@@ -20,7 +24,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def new
@@ -28,12 +31,9 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def create
-    @article = Article.new(article_params)
-
     unless params[:article][:image].nil?
       new_img_url = create_new_img(params[:article][:image])
       @article.update(image: new_img_url['url'])
@@ -47,8 +47,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
-
     if @article.update(article_params)
       redirect_to @article
     else
@@ -57,8 +55,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
-
     if @article.errors.present?
       throw(:abort)
     else
@@ -73,6 +69,10 @@ class ArticlesController < ApplicationController
   end
 
   private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
   def article_params
     params.require(:article).permit(:title, :text, :user_id)

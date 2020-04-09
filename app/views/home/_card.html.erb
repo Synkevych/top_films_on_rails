@@ -1,4 +1,4 @@
-    <% Article.find_each do |article| %>
+    <% Article.find_each.reverse_each do |article| %>
     <div class="col">
       <div class="card bg-light mt-3" style=" min-width: 22rem;">
 
@@ -27,7 +27,7 @@
           <b>
             @<%= User.find(article.user_id).username %>
           </b>
-          <%= article.created_at.strftime(" %m.%d.%Y") %>
+          <%= time_ago_in_words(article.created_at) %>
         </div>
       </div>
 

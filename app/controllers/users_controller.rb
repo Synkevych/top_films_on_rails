@@ -1,22 +1,16 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: %i[new create]
+  skip_before_action :set_user, :authorized, only: %i[new create]
 
   def show
-    @user = User.find(params[:id])
- end
+  end
 
   def new
     @user = User.new
   end
 
   def edit
-    @user = User.find(params[:id])
-  end
-
-  def create_new_img(new_img)
-    new_img_url = Cloudinary::Uploader.upload(new_img)
   end
 
   def create
@@ -48,6 +42,16 @@ class UsersController < ApplicationController
     current_user.update(user_param)
 
     redirect_to '/welcome'
+  end
+
+  private 
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def create_new_img(new_img)
+    new_img_url = Cloudinary::Uploader.upload(new_img)
   end
 
   def user_param
