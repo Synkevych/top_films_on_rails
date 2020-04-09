@@ -34,7 +34,7 @@
       <%# if !article.comments.empty?  then %>
       <div class="card">
         <div class="card-header bg-info">
-          <%= link_to 'Show more', 'articles/' + article.id.to_s, class: 'btn btn-light '%>
+          <%= link_to 'Show more', edit_user_path(current_user), class: 'btn btn-light '%>
         </div>
         <%#= render article.comments %>
         <%# end %>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   post 'user', to: 'users#user'
 
-  get 'user', to: 'users#user'
+  get 'user', to: redirect('users#user')
 
   get 'home/index'
 
