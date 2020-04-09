@@ -69,6 +69,8 @@ Things you may want to cover:
 
 * How to run the test suite
 `rails d controller welcome` - удалит контролер
+`rails generate model Post title:string content:text`  
+`rails destroy model Post title:string content:text`
 
 * Services (job queues, cache servers, search engines, etc.)
 
