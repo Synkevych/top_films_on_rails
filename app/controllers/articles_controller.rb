@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-   before_action :set_article
+  #  before_action :set_article
 
   def index
-    if params.has_key? :search
+    if params.key? :search
       @search = params[:search]
-      @articles = current_user.articles.where("title like ?", "%#{@search}%")
+      @articles = Article.where('lower(title) like ?', "%#{@search.downcase}%")
+      if @articles.empty?
+        @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
+      end
     else
-      @articles = current_user.articles
-    end  
+      @articles = Article.all
+      end
   end
 
   def create_new_img(new_img)
@@ -70,9 +73,9 @@ class ArticlesController < ApplicationController
 
   private
 
-  def set_article
-    @article = current_user.articles.find(params[:id])
-  end
+  # def set_article
+  #   @article = current_user.articles.find(params[:id])
+  # end
 
   def article_params
     params.require(:article).permit(:title, :text )

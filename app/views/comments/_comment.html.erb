@@ -4,13 +4,13 @@
     <div class="comment mb-2 row">
 
       <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-        <% unless comment.user.avatar.blank? %>
-        <%= image_tag comment.user.avatar.variant(resize_to_limit: [100, 100]), class: "mx-auto rounded-circle img-fluid" %>
-        <% end %>
+        <%# unless comment.user.avatar.blank? %>
+        <%#= image_tag comment.user.avatar), class: "avatar" %>
+        <%# end %>
       </div>
       <div class="comment-content col-md-11 col-sm-10">
         <h6 class="small comment-meta">
-          <%= comment.user.login %>
+          <%= comment.user.id %>
           ____ <em><%= comment.created_at.localtime.to_s(:long) %></em>
         </h6>
         <div class="comment-body">

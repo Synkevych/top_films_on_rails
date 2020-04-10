@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-5">
         <% unless @article.user.avatar.blank? %>
-        <%= image_tag @article.user.avatar.variant(resize_to_limit: [100, 100]), class: "mx-auto rounded-circle img-fluid"  %>
+        <%# = image_tag @article.user.avatar ), class: "mx-auto rounded-circle img-fluid"  %>
         <% end %>
       </div>
       <h3 class="col-md-7">
@@ -17,7 +17,7 @@
 
     <div class="comment-content col-md-11 col-sm-10">
       <strong>Author:</strong>
-      <h6 class="small comment-meta"><%= @article.user.login %></h6>
+      <h6 class="small comment-meta"><%#= @article.user.login %></h6>
     </div>
   </div>
 
@@ -48,7 +48,3 @@
     </div>
   </div>
 </div>
-
-<p>
-  <%= link_to 'Back', welcome_index_path, class: "btn btn-secondary btn-sm" %>
-</p>
