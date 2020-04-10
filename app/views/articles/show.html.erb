@@ -1,58 +1,54 @@
-<div class="col">
-  <div class="card bg-light mb-3"" style=" min-width: 22rem;">
+<div class="card">
 
-    <div class="card-header"> <b>
-        <%= @article.title %>
-      </b>
-    </div>
-
-    <div class="card-body">
-      
-      <% if !@article.image.nil? then %>
-      <div class="card-img mb-2">
-        <%= image_tag @article.image, class: 'rounded img-fluid' %>
-      </div>
-      <% end %>
-
-      <p class="card-text">
-        <%= @article.text %>
-      </p>
-      <p>
-
-        <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id || User.find(user_id).role == 'admin' then %>
-        <%= link_to  "Delete", article_path(@article),
-                 method: :delete,
-                 data: { confirm: 'Are you sure?'},
-                class: "btn btn-danger" %>
-        <%= link_to  "Edit", edit_article_path(@article), class: "btn btn-info" %>
+  <div class="card-header">
+    <p>
+      <%= image_tag @article.image unless @article.image.nil? %>
+    </p>
+    <div class="row">
+      <div class="col-md-5">
+        <% unless @article.user.avatar.blank? %>
+        <%= image_tag @article.user.avatar.variant(resize_to_limit: [100, 100]), class: "mx-auto rounded-circle img-fluid"  %>
         <% end %>
-        <%= link_to  "View All", articles_path, class: "btn btn-secondary" %>
-
-      </p>
+      </div>
+      <h3 class="col-md-7">
+        <strong><%= @article.title %></strong>
+      </h3>
     </div>
 
-    <div class="card-footer text-muted">
-      <% user = User.find(@article.user_id) %>
-      <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-      <b>
-        <%= user.username %>
-      </b>
-      <%= time_ago_in_words(@article.created_at) %>
+    <div class="comment-content col-md-11 col-sm-10">
+      <strong>Author:</strong>
+      <h6 class="small comment-meta"><%= @article.user.login %></h6>
     </div>
   </div>
 
-    <!-- Comments   -->
+  <div class="card-body">
+    <p class="card-text">
+      <%= @article.text %>
+    </p>
 
-  <%# if !@article.comments.empty?  then %>
-  <div class="ml-4">
-    <div class=""></div>
-    <% if !current_user.nil?  then %>
+    <p>
+      <% unless current_user.nil? %>
+      <%= link_to "Leave a comment on the article", new_comment_path(:article_id => @article.id), class: "btn btn-primary btn-sm" %>
+      <% else %>
+      <div>
+        <%= link_to "Log In", login_path(:before_login_path => request.path) %>
+        to leave a comment.
+      </div> <br>
+      <% end %>
+    </p>
+  </div>
 
-    <%= render 'comments/form' %>
+</div>
 
-    <% end %>
-    
-    <%= render @article.comments %>
-    <%# end %>
+<div class="container py-2">
+  <div class="row">
+    <div class="comments col-md-9" id="comments">
+      <h3 class="mb-4 font-weight-light">Comments</h3>
+      <%= render @article.comments, :level => 0 %>
+    </div>
   </div>
 </div>
+
+<p>
+  <%= link_to 'Back', welcome_index_path, class: "btn btn-secondary btn-sm" %>
+</p>

@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  $comment_form_hidden = false
+   before_action :set_article
 
   def index
-    if params.key? :search
+    if params.has_key? :search
       @search = params[:search]
-      @articles = Article.where('lower(title) like ?', "%#{@search.downcase}%")
-      if @articles.empty?
-        @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
-      end
+      @articles = current_user.articles.where("title like ?", "%#{@search}%")
     else
-      @articles = Article.all
-      end
+      @articles = current_user.articles
+    end  
   end
 
   def create_new_img(new_img)
@@ -24,7 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article = current_user.articles.build 
   end
 
   def edit
@@ -34,14 +31,15 @@ class ArticlesController < ApplicationController
   def create
     new_img_url = create_new_img(params[:article][:image])
 
-    @article = Article.new(article_params)
+    @article = current_user.articles.create(article_params)
     #@article[image] = new_img_url['url']
     @article.update(image: new_img_url['url'])
 
     if @article.save
-      flash[:success] = "Successfully created!"
+      flash[:success] = "Article successfully created!"
       redirect_to @article
     else
+       flash[:alert] = "With creating Acticle was some problem!"
       render 'new'
    end
 
@@ -72,7 +70,11 @@ class ArticlesController < ApplicationController
 
   private
 
+  def set_article
+    @article = current_user.articles.find(params[:id])
+  end
+
   def article_params
-    params.require(:article).permit(:title, :text, :user_id)
+    params.require(:article).permit(:title, :text )
   end
 end

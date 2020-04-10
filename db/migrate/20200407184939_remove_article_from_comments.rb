@@ -1,4 +1,4 @@
-class RemoveArticleReferenceFromComments < ActiveRecord::Migration[6.0]
+class RemoveArticleFromComments < ActiveRecord::Migration[6.0]
   def change
     remove_reference :comments, :article, null: false, foreign_key: true
   end

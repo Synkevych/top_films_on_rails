@@ -19,10 +19,10 @@ class UsersController < ApplicationController
     # проверить роль admin или user  иначе давать ошибку
     @user = User.create!(user_param)
 
-    unless params[:user][:avatar].nil?
-      new_img_url = create_new_img(params[:user][:avatar])
-      @user.update(avatar: new_img_url['url'])
-    end
+    # unless params[:user][:avatar].nil?
+    #   new_img_url = create_new_img(params[:user][:avatar])
+    #   @user.update(avatar: new_img_url['url'])
+    # end
 
     @user.save
 
@@ -58,6 +58,6 @@ class UsersController < ApplicationController
   end
 
   def user_param
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :avatar)
   end
 end
