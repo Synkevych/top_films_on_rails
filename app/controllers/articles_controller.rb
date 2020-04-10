@@ -39,6 +39,7 @@ class ArticlesController < ApplicationController
     @article.update(image: new_img_url['url'])
 
     if @article.save
+      flash[:success] = "Successfully created!"
       redirect_to @article
     else
       render 'new'
@@ -50,6 +51,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
+      flash[:success] = "Successfully updated!"
       redirect_to @article
     else
       render 'edit'
@@ -59,16 +61,12 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
 
-    if @article.errors.present?
-      throw(:abort)
-    else
       if @article.destroy
         flash[:success] = "Successfully deleted!"
       else
         flash[:error] = "Something went wrong, the acticle wasn't deleted"
       end
-    end
-    
+
     redirect_to articles_path
   end
 

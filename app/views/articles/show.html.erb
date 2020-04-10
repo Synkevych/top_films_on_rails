@@ -7,11 +7,13 @@
     </div>
 
     <div class="card-body">
+      
       <% if !@article.image.nil? then %>
       <div class="card-img mb-2">
         <%= image_tag @article.image, class: 'rounded img-fluid' %>
       </div>
       <% end %>
+
       <p class="card-text">
         <%= @article.text %>
       </p>
@@ -28,24 +30,29 @@
 
       </p>
     </div>
+
     <div class="card-footer text-muted">
       <% user = User.find(@article.user_id) %>
       <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-
       <b>
-        @<%= user.username %>
+        <%= user.username %>
       </b>
       <%= time_ago_in_words(@article.created_at) %>
     </div>
   </div>
 
-  <% if !@article.comments.empty?  then %>
+    <!-- Comments   -->
+
+  <%# if !@article.comments.empty?  then %>
   <div class="ml-4">
     <div class=""></div>
-    <%= render @article.comments %>
-    <% end %>
     <% if !current_user.nil?  then %>
+
     <%= render 'comments/form' %>
+
     <% end %>
+    
+    <%= render @article.comments %>
+    <%# end %>
   </div>
 </div>

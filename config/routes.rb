@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   root 'home#index'
   
- resources :users, only: [:new, :create, :welcom, :edit, :update]
+ resources :users, only: [:new, :create, :welcome, :edit, :update]
   
   get 'login', to: 'sessions#new'
 
@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
   resources :articles do
     # this create comments as a nested resource with articles
+    resources :comments
+  end
+   
+  resources :comments do
     resources :comments
   end
   
