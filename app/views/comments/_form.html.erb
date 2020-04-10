@@ -1,34 +1,18 @@
-<div class="card border-success mb-4">
-  <div class="card-header bg-success"> Add a comment:</div>
+<button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#article-reply" aria-expanded="false" aria-controls="article-reply">
+  Reply
+</button>
 
-  <%= form_with(model: [@article, @article.comments.build ], local: true ) do |form| %>
+<div class="" id="article-reply">
+  <%#= form_with(model: [@article, Comment.new], local: true) do |form| %>
+  <%= form_with(model: [ @article, Comment.new], local: true) do |form| %>
 
-  <% if @article.errors.any? %>
-  <div class="alert alert-danger" id="error_explanation" role="alert">
-    <h2>
-      <%= pluralize(@article.errors.count, "error") %> prohibited
-      this article from being saved:
-    </h2>
-    <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
+  <%= hidden_field_tag "article_id", @article.id %>
+  <%= form.hidden_field :user_id %>
+
+  <%#= form.hidden_field :commenter, value: current_user.username%>
+  <%= form.text_area :body, :class => "form-control col-4" %>
+  <p>
+    <%= form.submit "Create", :class => "btn btn-outline-dark" %>
+  </p>
   <% end %>
-
-  <div class="card-body">
-    <% if !current_user.avatar.nil? %>
-    <%= image_tag current_user.avatar, alt: 'avatar', class:'avatar'%>
-    <%end %>
-    @<%= current_user.username %>
-    <%= form.hidden_field :commenter, value: current_user.username%>
-    <%# end %>
-    <%= form.text_area :body, class: "form-control" %>
-  </div>
-  <div class="card-body">
-    <%= submit_tag 'Submit', class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-
 </div>

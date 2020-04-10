@@ -171,6 +171,7 @@ Run migration: `rails db:migrate`. They create all new tables and columns.
 
 `rake db:migrate` - checks which missing migrations still need to be applied to the database without caring about the previouse ones.  
 `id, created_at, updated_at` was created by default for each ActiveRecord model.  
+`rails generate migration AddPartNumberToProducts part_number:string:index` generate migration  
 
 To generate a *model* you can use following field types:
 

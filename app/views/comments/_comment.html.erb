@@ -1,25 +1,29 @@
-  <div class="card">
-    <div class="card-header">
-      <% user = User.find_by(username: comment.commenter) %>
-      <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-      <b> @<%= comment.commenter %>
-      </b>
-      <%#= comment.created_at.strftime("%H:%M  %m.%d.%Y ") %>
-      <%= time_ago_in_words(comment.created_at) %>
-    </div>
-    <div class="card-body">
+<div class="card">
+  <div class="card-header">
+    <% user = User.find_by(username: comment.commenter) %>
+    <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
+    <b> <%= comment.commenter %>
+    </b>
+    <%#= comment.created_at.strftime("%H:%M  %m.%d.%Y ") %>
 
-      <div class="card-text border-success">
-        <%= comment.body %>
-      </div>
-      <br />
-      <% if !current_user.nil? then %>
-      <% if (comment.commenter == user.username) || user.role == 'admin' then %>
-      <%= link_to 'Remove', [comment.article, comment],
+    <% if !current_user.nil? then %>
+    <% if (comment.commenter == user.username) || user.role == 'admin' then %>
+    <%= link_to 'x', [comment.article, comment],
                method: :delete,
                data: { confirm: 'Are you sure?' },
-               class: "btn btn-danger card-link" %>
-      <% end %>
-      <% end %>
-    </div>
+               class: "badge badge-danger float-right " %>
+    <% end %>
+    <% end %>
   </div>
+  <div class="card-body">
+
+    <div class="card-text border-success">
+      <%= comment.body %>
+    </div>
+    <br/>
+    <p class="card-text text-muted"><small class="text-muted">
+        <%= time_ago_in_words(comment.created_at) %>
+      </small>
+    </p>
+  </div>
+</div>
