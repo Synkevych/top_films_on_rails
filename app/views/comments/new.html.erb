@@ -1,23 +1,21 @@
-<div class="container h-100">
-  <div class="col-md-7 mx-auto">
-    <div class="border border-info rounded p-5">
+<div class="card rounded w-75">
+  <div class="card-header">Add a comment:</div>
 
-      <h2>Add a comment:</h2>
-      <%= form_with(model: [@commentable, @comment], local: true) do |form| %>
+  <div class="card-body">
 
-        <%= render 'layouts/errors', model: @comment , model_str: 'comment' %>
-        <%= hidden_field_tag "article_id", @article.id %>
-        <%= form.hidden_field :user_id %>
+    <%= form_with(model: [@commentable, @comment], local: true) do |form| %>
 
-        <div class="form-group">
-          <%= form.text_area :body, class: "form-control", placeholder: "Write something..." %>
-        </div>
+    <%= render 'layouts/errors', model: @comment , model_str: 'comment' %>
+    <%= hidden_field_tag "article_id", @article.id %>
+    <%= form.hidden_field :user_id %>
+    <%= form.text_area :body, class: "form-control", rows: "8", placeholder: "What Did You Want To Say?" %>
 
-        <div class="form-group">
-          <%= form.submit 'Add the comment', class: "btn btn-info"%>
-        </div>
-      <% end %>
-    </div>
   </div>
 
-  
+  <div class="card-footer">
+    <%= form.submit 'Add the comment', class: "btn btn-primary btn-sm"%>
+    <%= link_to "Back", "/articles/" + @commentable.id.to_s, class: "btn btn-secondary btn-sm"%>
+    <% end %>
+  </div>
+  <% console %>
+</div>

@@ -13,7 +13,7 @@
       </li>
       <% if !current_user.nil? %>
       <li class="nav-item">
-        <%= link_to "Profile", 'users/' + current_user.id.to_s + '/edit', method: :get, class: "nav-link"%>
+        <%= link_to "Profile", '/users/' + current_user.id.to_s + '/edit', method: :get, class: "nav-link"%>
       </li>
       <% end %>
     </ul>

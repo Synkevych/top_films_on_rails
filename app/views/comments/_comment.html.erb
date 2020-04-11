@@ -1,42 +1,41 @@
 <div class="card">
   <div class="card-header">
     <%= content_tag :div, style: "margin-left: #{level * 50}px" do -%>
-    <div class="comment mb-2 row">
 
-      <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-        <%# unless comment.user.avatar.blank? %>
-        <%#= image_tag comment.user.avatar), class: "avatar" %>
-        <%# end %>
-      </div>
-      <div class="comment-content col-md-11 col-sm-10">
-        <h6 class="small comment-meta">
-          <%= comment.user.id %>
-          ____ <em><%= comment.created_at.localtime.to_s(:long) %></em>
-        </h6>
-        <div class="comment-body">
-          <%= comment.body %>
-        </div>
-
-        <% unless current_user.nil? %>
-        <%= link_to "Add reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "text-right small" %>
-        <% end %>
-
-        <% if comment.user == current_user %>
-        <%= link_to 'Destroy Comment', [comment.commentable, comment, {:article_id => @article.id}],
-                    method: :delete,
-                    data: { confirm: 'Are you sure?' }, class: "text-right small"  %>
-        <% end %>
-
-      </div>
-
-
+    <div class="comment-avatar ">
+      <% user = User.find_by(id: comment.user_id) %>
+      <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
+      <b> <%= user.username %>
+      </b>
     </div>
 
+    <div class="card-body">
+
+      <div class="card-text border-success">
+        <%= comment.body %>
+      </div>
+
+      <p class="card-text text-muted"><small class="text-muted">
+          <%= time_ago_in_words(comment.created_at) %>
+        </small>
+      </p>
+    </div>
+    <div class="mb-2">
+      <% unless current_user.nil? %>
+      <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "btn btn-primary btn-sm" %>
+      <% end %>
+
+      <% if comment.user == current_user %>
+      <%= link_to 'Remove', [comment.commentable, comment, {:article_id => @article.id}],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm"  %>
+      <% end %>
+    </div>
 
     <% unless comment.comments.blank? %>
     <%= render comment.comments, :level => level + 1 %>
     <% end %>
 
     <% end -%>
+
   </div>
-</div>

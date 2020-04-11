@@ -24,7 +24,9 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = current_user.articles.build 
+
+    @article = Article.new
+    #@article = current_user.articles.build 
   end
 
   def edit
@@ -32,10 +34,13 @@ class ArticlesController < ApplicationController
   end
 
   def create
+
+    user = User.find_by(id: current_user.id)
+
     new_img_url = create_new_img(params[:article][:image])
 
-    @article = current_user.articles.create(article_params)
-    #@article[image] = new_img_url['url']
+    @article = Article.new(article_params)
+    @article['user_id'] = user.id
     @article.update(image: new_img_url['url'])
 
     if @article.save
