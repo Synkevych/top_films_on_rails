@@ -57,7 +57,7 @@
   </tr>
   <% end %>
 </table>
+
 <div class="m-auto">
-  <%= will_paginate @article, renderer: BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer" %>
+  <%= will_paginate @article, list_classes: %w(pagination justify-content-end), previous_label: "Older", next_label: "Newer" %>
 </div>
-<%#= will_paginate @articles, renderer: BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer"%>

@@ -256,5 +256,6 @@ end
 ### Add will_paginate
 
 > gem 'will_paginate'
-> self.per_page = 50 -> to article model
-> 
+> self.per_page = 5 -> to article model
+> `articles.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)` to the index method in controller
+> `<%= will_paginate @article, list_classes: %w(pagination justify-content-end) %>1` to the html page

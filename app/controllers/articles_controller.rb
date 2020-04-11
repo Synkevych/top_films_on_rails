@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  #  before_action :set_article
+  before_action :set_article
 
   def index
     if params.key? :search
-      @search = params[:search]
-      
-      @articles = Article.where('lower(title) like ?', "%#{@search.downcase}%")
-      if @articles.empty?
-        @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
-      end
-
+      @search = params[:search].downcase
+      @articles = Article.where('lower(title) LIKE ? OR lower(text) LIKE ?', "%#{@search}%", "%#{@search}%")
+      paginate(@articles)
     else
-      #@articles = Article.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
-      @articles = Article.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+      paginate(@Article.all)
     end
   end
 
-  def create_new_img(new_img)
-    new_img_url = Cloudinary::Uploader.upload(new_img)
-  end
+  def paginate(articles)
+      @article = articles.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+  end 
 
   def show
     @article = Article.find(params[:id])
@@ -68,11 +63,11 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
 
-      if @article.destroy
-        flash[:success] = "Successfully deleted!"
-      else
-        flash[:error] = "Something went wrong, the acticle wasn't deleted"
-      end
+    if @article.destroy
+      flash[:success] = "Successfully deleted!"
+    else
+      flash[:error] = "Something went wrong, the acticle wasn't deleted"
+    end
 
     redirect_to articles_path
   end
@@ -81,6 +76,10 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = current_user.articles.find(params[:id])
+  end
+
+  def create_new_img(new_img)
+    new_img_url = Cloudinary::Uploader.upload(new_img)
   end
 
   def article_params
