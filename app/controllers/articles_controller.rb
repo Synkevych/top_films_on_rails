@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
     new_img_url = create_new_img(params[:article][:image])
 
     @article = Article.new(article_params)
-    @article['user_id'] = user.id
+    #@article['user_id'] = user.id
     @article.update(image: new_img_url['url'])
 
     if @article.save

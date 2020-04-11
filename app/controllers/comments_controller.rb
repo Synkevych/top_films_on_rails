@@ -2,13 +2,11 @@
 
 class CommentsController < ApplicationController
 
-   before_action :set_article
+  before_action :set_article
   before_action :find_commentable
-
+  
   def new
      @comment = @commentable.comments.build(user_id: current_user.id)
-    # current_user = User.find_by(id: @commentable.user_id)
-    # @comment = @commentable.comments.build(user_id: current_user.id)
   end
 
   def create
@@ -39,8 +37,8 @@ class CommentsController < ApplicationController
   private
   def set_article
      @article = Article.find(params[:article_id])
-    # current_user = User.find_by(id: params[:user_id])
-    # @article = current_user.articles.find(params[:id])
+     #@article.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+
   end
 
   def find_commentable
