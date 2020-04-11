@@ -6,8 +6,9 @@ class CommentsController < ApplicationController
   before_action :find_commentable
 
   def new
-    current_user = User.find_by(id: @commentable.user_id)
-    @comment = @commentable.comments.build(user_id: current_user.id)
+     @comment = @commentable.comments.build(user_id: current_user.id)
+    # current_user = User.find_by(id: @commentable.user_id)
+    # @comment = @commentable.comments.build(user_id: current_user.id)
   end
 
   def create
@@ -16,7 +17,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       flash[:success] = "Your comment was successfully created!"
-      redirect_to article_path(@commentable.id)
+      redirect_to article_path(@article)
     else
       flash[:alert] = "Comment wasn't created!"
       render 'new'      
@@ -31,7 +32,7 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "Something went wrong, the comment wasn't deleted"
     end
-    redirect_to article_path(@commentable.id)
+    redirect_to article_path(@article)
   end
 
 

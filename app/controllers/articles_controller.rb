@@ -24,7 +24,6 @@ class ArticlesController < ApplicationController
   end
 
   def new
-
     @article = Article.new
     #@article = current_user.articles.build 
   end
@@ -36,7 +35,6 @@ class ArticlesController < ApplicationController
   def create
 
     user = User.find_by(id: current_user.id)
-
     new_img_url = create_new_img(params[:article][:image])
 
     @article = Article.new(article_params)
@@ -78,11 +76,11 @@ class ArticlesController < ApplicationController
 
   private
 
-  # def set_article
-  #   @article = current_user.articles.find(params[:id])
-  # end
+  def set_article
+    @article = current_user.articles.find(params[:id])
+  end
 
   def article_params
-    params.require(:article).permit(:title, :text )
+    params.require(:article).permit(:title, :text, :image)
   end
 end

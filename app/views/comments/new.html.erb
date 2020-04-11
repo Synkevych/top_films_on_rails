@@ -4,7 +4,7 @@
   <div class="card-body">
 
     <%= form_with(model: [@commentable, @comment], local: true) do |form| %>
-    <%= current_user %>
+
     <%= render 'layouts/errors', model: @comment , model_str: 'comment' %>
     <%= hidden_field_tag "article_id", @article.id %>
     <%= form.hidden_field :user_id %>

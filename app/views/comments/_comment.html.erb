@@ -9,7 +9,6 @@
     </div>
 
     <div class="card-body">
-
       <div class="card-text border-success">
 
         <%= comment.body %>
@@ -25,7 +24,7 @@
       <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% end %>
 
-      <% if comment.user == current_user %>
+      <% if user.id == current_user.id then %>
       <%= link_to 'Remove', [comment.commentable, comment, {:article_id => @article.id}],
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm"  %>
