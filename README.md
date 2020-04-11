@@ -253,6 +253,8 @@ end
 <% end %>
 ```
 
-### Ruby Default Web Server
+### Add will_paginate
 
-> bundle exec rackup
+> gem 'will_paginate'
+> self.per_page = 50 -> to article model
+> 

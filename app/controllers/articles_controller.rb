@@ -6,13 +6,16 @@ class ArticlesController < ApplicationController
   def index
     if params.key? :search
       @search = params[:search]
+      
       @articles = Article.where('lower(title) like ?', "%#{@search.downcase}%")
       if @articles.empty?
         @articles = Article.where('lower(text) like ?', "%#{@search.downcase}%")
       end
+
     else
-      @articles = Article.all
-      end
+      #@articles = Article.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
+      @articles = Article.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+    end
   end
 
   def create_new_img(new_img)
@@ -33,8 +36,8 @@ class ArticlesController < ApplicationController
   end
 
   def create
-
     user = User.find_by(id: current_user.id)
+
     new_img_url = create_new_img(params[:article][:image])
 
     @article = Article.new(article_params)
@@ -81,6 +84,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :text, :image)
+    params.require(:article).permit(:title, :text, :user_id)
   end
 end
