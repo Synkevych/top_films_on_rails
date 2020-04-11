@@ -37,11 +37,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    unless params[:user][:avatar].nil?
-      new_img_url = create_new_img(params[:user][:avatar])
-      current_user.update(avatar: new_img_url['url'])
+    # unless params[:user][:avatar].nil?
+    #   new_img_url = create_new_img(params[:user][:avatar])
+    #   current_user.update(avatar: new_img_url['url'])
 
-    end
+    # end
     current_user.update(user_param)
 
     redirect_to '/welcome'
@@ -53,9 +53,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def create_new_img(new_img)
-    new_img_url = Cloudinary::Uploader.upload(new_img)
-  end
+  # def create_new_img(new_img)
+  #   # new_img_url = Cloudinary::Uploader.upload(new_img)
+  # end
 
   def user_param
     params.require(:user).permit(:username, :password, :avatar)

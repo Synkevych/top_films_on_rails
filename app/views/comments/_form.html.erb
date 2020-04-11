@@ -8,6 +8,7 @@ local: true) do |form| %>
   <%#= form.hidden_field :user_id %>
 
   <%= form.hidden_field :user_id, value: current_user.id%>
+
   <%= form.text_area :body, :class => "form-control" %>
   <p>
     <%= form.submit "Create", :class => "btn btn-outline-dark" %>
