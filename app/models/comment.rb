@@ -1,6 +1,4 @@
 class Comment < ApplicationRecord
-  self.per_page = 5
-
   belongs_to :user
 
   belongs_to :commentable, polymorphic: true

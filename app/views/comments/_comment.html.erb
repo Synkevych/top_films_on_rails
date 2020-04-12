@@ -3,9 +3,9 @@
     <%= content_tag :div, style: "margin-left: #{level * 1}px" do %>
 
     <div class="comment-avatar ">
-      <% user = User.find_by(id: comment.user_id) %>
-      <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
-      <b> <%= user.username %></b>
+
+      <%= image_tag comment.user.avatar, alt: 'avatar', class:'avatar'%>
+      <b> <%= comment.user.username %></b>
     </div>
 
     <div class="card-body">
@@ -24,7 +24,7 @@
       <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% end %>
 
-      <% if user.id == current_user.id then %>
+      <% if comment.user.id == current_user.id then %>
       <%= link_to 'Remove', [comment.commentable, comment, {:article_id => @article.id}],
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm"  %>
@@ -34,8 +34,7 @@
     <% unless comment.comments.blank? %>
     <%= render comment.comments, :level => level + 1 %>
     <% end %>
-
     <% end -%>
-
   </div>
+
 </div>

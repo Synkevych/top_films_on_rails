@@ -22,15 +22,14 @@
     </div>
 
     <div class="card-footer text-muted bg-light">
-      <% user = User.find(@article.user_id) %>
-      <%= image_tag user.avatar, alt: 'avatar', class:'avatar'%>
+      <%= image_tag @article.user.avatar, alt: 'avatar', class:'avatar'%>
       <b>
-        <%= user.username %>
+        <%= @article.user.username %>
       </b>
     </div>
 
     <p class="mx-auto">
-      <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id || User.find(user_id).role == 'admin' then %>
+      <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id then %>
       <%= link_to  "Delete", article_path(@article),
                  method: :delete,
                  data: { confirm: 'Are you sure?'},
@@ -45,7 +44,7 @@
       <div>
         <%= link_to "Log In", login_path(:before_login_path => request.path) %>
         to leave a comment.
-      </div> <br>
+      </div>
       <% end %>
     </p>
 
@@ -55,9 +54,13 @@
     <div class="row">
       <div class="comments col-md-9" id="comments">
         <h3 class="mb-4 font-weight-light">Comments</h3>
+
         <%= render @article.comments, :level => 0 %>
       </div>
     </div>
+
+    <%= will_paginate @article.comments.paginate(page: params[:page], per_page: 3), previous_label: "Older", next_label: "Newer"%>
+  
   </div>
   <% end %>
 </div>

@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :set_article
+# before_action :set_article
 
   def index
     if params.key? :search
       @search = params[:search].downcase
       @articles = Article.where('lower(title) LIKE ? OR lower(text) LIKE ?', "%#{@search}%", "%#{@search}%")
-      paginate(@articles)
+      paginate_articles(@articles)
     else
-      paginate(@Article.all)
+      paginate_articles(Article.includes(:user))
     end
   end
 
-  def paginate(articles)
-      @article = articles.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+  def paginate_articles(articles)
+      @articles = articles
+      .order("created_at DESC")
+      .paginate(page: params[:page], per_page: 5)
   end 
-
+    
   def show
-    @article = Article.find(params[:id])
+    @article =  Article.find(params[:id])
+    #@comment = @article.comments.paginate(page: params[:page], per_page: 3)
   end
 
   def new
@@ -31,12 +34,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    user = User.find_by(id: current_user.id)
-
     new_img_url = create_new_img(params[:article][:image])
 
     @article = Article.new(article_params)
-    #@article['user_id'] = user.id
     @article.update(image: new_img_url['url'])
 
     if @article.save
@@ -75,7 +75,8 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = current_user.articles.find(params[:id])
+    @article = session[:user_id].articles.find(params[:id])
+  #  @article = @article.comments.all.order("created_at DESC")
   end
 
   def create_new_img(new_img)
