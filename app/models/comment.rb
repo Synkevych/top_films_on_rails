@@ -1,8 +1,8 @@
 class Comment < ApplicationRecord
+  self.per_page = 5
+
   belongs_to :user
 
-  self.per_page = 5
-  
   belongs_to :commentable, polymorphic: true
   has_many :comments, as: :commentable, dependent: :destroy
   
