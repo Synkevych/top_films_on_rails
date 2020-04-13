@@ -29,8 +29,8 @@
     </div>
 
     <p class="mx-auto">
-      <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id then %>
-      
+      <% user_id = !logged_in? || current_user.id; if @article.user_id == user_id then %>
+
       <%= link_to  "Delete", article_path(@article),
                  method: :delete,
                  data: { confirm: 'Are you sure?'},
