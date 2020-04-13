@@ -35,10 +35,14 @@ class CommentsController < ApplicationController
 
 
   private
-  def set_article
-     @article = Article.find(params[:article_id])
-     #@article.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
 
+  def set_article
+     #@article = Article.find(params[:article_id])
+    unless params[:article_id].nil?
+      @article = Article.find(params[:article_id])
+    else
+      @article =  Article.all
+    end
   end
 
   def find_commentable

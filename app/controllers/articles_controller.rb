@@ -72,12 +72,10 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    if !params[:id].nil?
+    unless params[:id].nil?
       @article = Article.find(params[:id])
     else
       @articles =  Article.all
-  #  @article = session[:user_id].articles.find(params[:id])
-  # @article = @article.comments.all.order("created_at DESC")
     end
   end
 

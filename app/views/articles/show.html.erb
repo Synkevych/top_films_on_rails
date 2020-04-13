@@ -30,19 +30,20 @@
 
     <p class="mx-auto">
       <% user_id = current_user.nil? || current_user.id; if @article.user_id == user_id then %>
+      
       <%= link_to  "Delete", article_path(@article),
                  method: :delete,
                  data: { confirm: 'Are you sure?'},
                 class: "btn btn-danger btn-sm" %>
-      <%= link_to  "Edit", edit_article_path(@article), class: "btn btn-info btn-sm" %>
+      <%= link_to "Edit", edit_article_path(@article), class: "btn btn-info btn-sm" %>
       <% end %>
-      <%= link_to  "View All", articles_path, class: "btn btn-secondary btn-sm" %>
+      <%= link_to "View All", articles_path, class: "btn btn-secondary btn-sm" %>
 
       <% unless current_user.nil? %>
       <%= link_to "Leave a comment on the article", new_comment_path(:article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% else %>
       <div>
-        <%= link_to "Log In", login_path(:before_login_path => request.path) %>
+        <%= link_to "Log In", "/login", class: "ml-4" %>
         to leave a comment.
       </div>
       <% end %>
@@ -61,8 +62,8 @@
         <%= render @comments, :level => 0 %>
       </div>
     </div>
-
-
   </div>
+
   <% end %>
+  <% console %>
 </div>

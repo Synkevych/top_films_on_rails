@@ -1,3 +1,4 @@
+<% user_logged_in = (current_user.nil? || true) %>
 <div class="card">
   <div class="card-header">
     <%= content_tag :div, style: "margin-left: #{level * 1}px" do %>
@@ -19,22 +20,38 @@
         </small>
       </p>
     </div>
+
+    <!-- Reply Button -->
     <div class="mb-2">
-      <% unless current_user.nil? %>
+      <% if user_logged_in then %>
       <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% end %>
 
-      <% current_user_id = current_user.nil? ? false : current_user.id; if comment.user.id == current_user_id then %>
+      <!-- Delete Button -->
+      <%  current_user_id = user_logged_in ? current_user.id : false %>
+      <% if comment.user.id == current_user_id then %>
+
+      <% if comment.commentable_type == "Article" then %>
+
+      <%= link_to 'Remove', [comment.commentable, comment],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+      <% else %>
+
       <%= link_to 'Remove', [comment.commentable, comment, {:article_id => @article.id}],
                     method: :delete,
-                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm"  %>
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+      <% end %>
       <% end %>
     </div>
 
+    <!-- Render nested comments -->
     <% unless comment.comments.blank? %>
     <%= render comment.comments, :level => level + 1 %>
     <% end %>
+
     <% end -%>
+
   </div>
 
 </div>
