@@ -9,7 +9,7 @@
     <div class="card-body">
       <% if !@article.image.nil? then %>
       <div class="card-img mb-2">
-        <%= image_tag @article.image, class: 'rounded img-fluid' %>
+        <%= image_tag @article.image, class: 'img-fluid w-50' %>
       </div>
       <% end %>
       <p class="card-text">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-footer text-muted bg-light">
-      <%= image_tag @article.user.avatar, alt: 'avatar', class:'avatar'%>
+      <%= cl_image_tag @article.user.avatar, alt: 'avatar', class:'avatar'%>
       <b>
         <%= @article.user.username %>
       </b>
@@ -55,13 +55,10 @@
       <div class="comments col-md-9" id="comments">
         <h3 class="mb-4">Comments</h3>
         <div class="mx-auto">
-
-          
-          <% console %>
+          <%= will_paginate @comments, previous_label: "Older", next_label: "Newer"%>
         </div>
 
         <%= render @comments, :level => 0 %>
-          <%= will_paginate @comments, previous_label: "Older", next_label: "Newer"%>
       </div>
     </div>
 
