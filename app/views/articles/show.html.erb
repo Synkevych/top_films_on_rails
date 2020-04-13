@@ -55,11 +55,13 @@
       <div class="comments col-md-9" id="comments">
         <h3 class="mb-4">Comments</h3>
         <div class="mx-auto">
-          <%= will_paginate @comments, previous_label: "Older", next_label: "Newer"%>
+
+          
           <% console %>
         </div>
 
-        <%= render @article.comments, :level => 0 %>
+        <%= render @comments, :level => 0 %>
+          <%= will_paginate @comments, previous_label: "Older", next_label: "Newer"%>
       </div>
     </div>
 

@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
 
   def paginate_articles(articles)
       @articles = articles
-      .order("created_at DESC")
+      .includes(:user)
       .paginate(:page =>  params[:page])
   end 
     
