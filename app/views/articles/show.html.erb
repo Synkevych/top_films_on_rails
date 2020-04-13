@@ -53,14 +53,17 @@
   <div class="container py-2">
     <div class="row">
       <div class="comments col-md-9" id="comments">
-        <h3 class="mb-4 font-weight-light">Comments</h3>
+        <h3 class="mb-4">Comments</h3>
+        <div class="mx-auto">
+          <%= will_paginate @comments, previous_label: "Older", next_label: "Newer"%>
+          <% console %>
+        </div>
 
         <%= render @article.comments, :level => 0 %>
       </div>
     </div>
 
-    <%= will_paginate @article.comments.paginate(page: params[:page], per_page: 3), previous_label: "Older", next_label: "Newer"%>
-  
+
   </div>
   <% end %>
 </div>

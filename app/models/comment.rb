@@ -6,4 +6,6 @@ class Comment < ApplicationRecord
   
   validates :body, presence: true, length: { minimum: 5}
   validates :user_id, presence: true
+
+  self.per_page = 3
 end

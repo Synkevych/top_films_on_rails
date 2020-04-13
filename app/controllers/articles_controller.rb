@@ -16,12 +16,12 @@ class ArticlesController < ApplicationController
   def paginate_articles(articles)
       @articles = articles
       .order("created_at DESC")
-      .paginate(page: params[:page], per_page: 5)
+      .paginate(:page =>  params[:page])
   end 
     
   def show
     @article =  Article.find(params[:id])
-    #@comment = @article.comments.paginate(page: params[:page], per_page: 3)
+    @comments = @article.comments.paginate(:page=> params[:page])
   end
 
   def new
