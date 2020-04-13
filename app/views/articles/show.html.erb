@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-footer text-muted bg-light">
-      <%= cl_image_tag @article.user.avatar, alt: 'avatar', class:'avatar'%>
+      <%= cl_image_tag @article.user.avatar.key, alt: 'avatar', class:'avatar'%>
       <b>
         <%= @article.user.username %>
       </b>
@@ -65,5 +65,4 @@
   </div>
 
   <% end %>
-  <% console %>
 </div>
