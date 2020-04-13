@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.update(image: new_img_url['url'])
 
-    if @article.save
+    if @article.valid?
       flash[:success] = "Article successfully created!"
       redirect_to @article
     else
