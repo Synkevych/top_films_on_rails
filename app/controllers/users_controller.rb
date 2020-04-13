@@ -17,14 +17,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create!(user_param)
-
-    session[:user_id] = @user.id
-
+    
     if @user.save
+      flash[:info] = "Well done you registered!"
+      session[:user_id] = @user.id
       redirect_to '/welcome'
 
     else
-      redirect_to '/users/new'
+      redirect_to 'new'
     end
   end
 
