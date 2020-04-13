@@ -1,31 +1,31 @@
 <div class="col">
-    <div class="jumbotron text-center">
-        <h3 class="display-5">Welcome</h3>
-        <p class="lead">
-            <%if logged_in?%>
-            You are Logged In as: <b>
-                <%= current_user.username %></b>
-            <div class="user">
-                <div class="avarar">
-                    <%= image_tag current_user.avatar, alt: 'avatar',class:'avatar'%>
-                </div>
-            </div>
-            <%end%>
-        </p>
-        <hr class="my-4">
-        <p> What youre wanna to do: </p>
-        <ul class="list-unstyled">
-            <li>
-                <%if !logged_in?%>
-                <%= link_to "Sign In", '/users/new', method: :get, class: "btn btn-info"%>
-                <%= link_to "Login", '/login', method: :get, class: "btn btn-info"%>
-            </li>
-            <li>
-                <% else %>
-                <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
-                <%= link_to "Profile", edit_user_path(current_user), method: :get, class: "btn btn-info"%>
-                <%end%>
-            </li>
-            <ul>
-    </div>
+  <div class="jumbotron text-center">
+    <h3 class="display-5">Welcome</h3>
+    <p class="lead">
+      <%if logged_in?%>
+      You are Logged In as: <b>
+        <%= current_user.username %></b>
+      <div class="user">
+        <div class="avarar">
+          <%= cl_image_tag current_user.avatar.key, alt: 'avatar',class:'avatar'%>
+        </div>
+      </div>
+      <%end%>
+    </p>
+    <hr class="my-4">
+    <p> What youre wanna to do: </p>
+    <ul class="list-unstyled">
+      <li>
+        <%if !logged_in?%>
+        <%= link_to "Sign In", '/users/new', method: :get, class: "btn btn-info"%>
+        <%= link_to "Login", '/login', method: :get, class: "btn btn-info"%>
+      </li>
+      <li>
+        <% else %>
+        <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
+        <%= link_to "Profile", edit_user_path(current_user), method: :get, class: "btn btn-info"%>
+        <%end%>
+      </li>
+      <ul>
+  </div>
 </div>

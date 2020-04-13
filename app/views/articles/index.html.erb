@@ -27,7 +27,7 @@
   <% @articles.each do |article| %>
   <tr>
     <th scope="row">
-      <%= username = User.find(article.user_id).username %>
+      <%= article.user.username %>
     </th>
     <td>
       <b>
@@ -60,4 +60,5 @@
 
 <div class="m-auto">
   <%= will_paginate @article, previous_label: "Older", next_label: "Newer" %>
+  <% console %>
 </div>
