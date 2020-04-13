@@ -3,24 +3,21 @@
     <h3 class="display-5">Reset Password:</h3>
 
     <%= form_for @user, :url => password_reset_path(params[:id]) do |form| %>
-    <div class="card-body ">
+      <% if @user.errors.any? then %>
       <div class="error_messages">
         <h2> Form is invalid </h2>
         <ul>
-          <% for message in @user.errors.full_messages%>
+          <% for message in @user.errors.full_messages %>
           <li> <%= message %> </li>
           <% end %>
         </ul>
       </div>
+      <% end %>
       <%= form.label :password %>
-      <%= form.text_field :password, class: "form-control mb-4" %>
-      <hr>
-      <%= link_to "Reset Password", '/password/reset', method: :post, class: "btn btn-warning"%><br />
-      <hr>
-    </div>
+      <%= form.password_field :password, class: "form-control mb-4" %>
     <div class="m-auto">
-      <%= form.submit "Change",  class: "btn btn-primary"%>
-      <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
+      <%= form.submit "Update password",  class: "btn btn-primary"%>
+    </div>
     </div>
     <% end %>
   </div>

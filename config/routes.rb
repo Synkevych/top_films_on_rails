@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'authorized', to: 'sessions#page_requires_login'
   delete 'logout' => 'sessions#destroy'
   post 'user', to: 'users#user'
-  get 'user', to: redirect('users#user')
+  get 'user', to: 'users#user'
   get 'home/index'
 
 

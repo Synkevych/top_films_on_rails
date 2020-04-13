@@ -1,8 +1,16 @@
-<h1>Reset Password</h1>
+<div class="col">
+  <div class="card bg-light mb-3"" style=" min-width: 22rem;">
 
+    <div class="card-header bg-white"> <b>
+    Reset Password
+      </b>
+    </div>
 
-<%= form_tag password_resets_path, method: :post do %>
-  <%= label_tag :email %>
-  <%= text_field_tag :email, params[:email] %>
+  <br />
+  <%= form_tag password_resets_path, method: :post do %>
+  <%= label_tag :email %><br />
+  <%= text_field_tag :email, params[:email] %><br />
   <%= submit_tag "Reset password" %>
   <% end %>
+  </div>
+  </div>
