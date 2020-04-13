@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'home#index'
+ root 'home#index'
   
  resources :users, only: [:new, :create, :welcome, :edit, :update]
   
@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     resources :comments
   end
   
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
 end
