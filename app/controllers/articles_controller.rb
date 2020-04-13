@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-# before_action :set_article
+  before_action :set_article
 
   def index
     if params.key? :search
@@ -21,7 +21,6 @@ class ArticlesController < ApplicationController
   end 
     
   def show
-    @article =  Article.find(params[:id])
     @comments = @article.comments.order('created_at DESC').paginate(page: params[:page])
   end
 
@@ -31,7 +30,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def create
@@ -51,7 +49,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
 
     if @article.update(article_params)
       flash[:success] = "Successfully updated!"
@@ -62,8 +60,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
-
     if @article.destroy
       flash[:success] = "Successfully deleted!"
     else
@@ -76,8 +72,13 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = session[:user_id].articles.find(params[:id])
-  #  @article = @article.comments.all.order("created_at DESC")
+    if !params[:id].nil?
+      @article = Article.find(params[:id])
+    else
+      @articles =  Article.all
+  #  @article = session[:user_id].articles.find(params[:id])
+  # @article = @article.comments.all.order("created_at DESC")
+    end
   end
 
   def create_new_img(new_img)
