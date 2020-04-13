@@ -8,6 +8,7 @@ development:
   database: pg_test_development
   username: postgres
   password: postgres
+  host: localhost
   port: 5434
 
 test:
@@ -17,5 +18,3 @@ test:
 production:
   <<: *default
   database: articles
-  username: postgres
-  password: postgres

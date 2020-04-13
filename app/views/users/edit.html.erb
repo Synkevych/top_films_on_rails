@@ -6,7 +6,13 @@
       Hello, <b>
         <%= current_user.username %></b>
       <%end%>
+      <div class="user">
+        <div class="avarar">
+          <%= cl_image_tag current_user.avatar.key, alt: 'avatar',class:'avatar'%>
+        </div>
+      </div>
     </p>
+    <hr class="my-4">
     <p> All the information we have about you: </p>
     <%= form_with(model: @user, local: true) do |form| %>
     <div class="card-body ">
