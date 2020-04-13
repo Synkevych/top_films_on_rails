@@ -1,3 +1,4 @@
+<!-- Sing Up page  --->
 <div class="col">
   <div class="jumbotron text-center">
     <h3 class="display-5">Sing Up</h3>
@@ -5,16 +6,6 @@
     <hr class="my-4">
     <ul class="list-unstyled">
       <%= form_for @user do |form| %>
-      <% @user.errors.any? %>
-      <div class="error_messages">
-        <h2> Form is invalid </h2>
-        <ul>
-          <% for message in @user.errors.full_messages %>
-          <li> <%= message %> </li>
-          <% end %>
-        </ul>
-      </div>
-      <% end %>
       <div class="form-group">
         <%= form.label :username %>
         <%= form.text_field :username %>

@@ -11,17 +11,34 @@ class User < ApplicationRecord
 
   validates :password, length: { minimum: 3}, :if => :password
 
-  def send_password_reset
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now 
-    save!
-    UserMailer.password_reset(self).deliver
+  #before_save :downcase_email
+
+  # Sets the password reset attributes
+  def create_reset_digest
+    self.reset_token = User.new_toke
+    update_attribute(:reset_digest, User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  # Sends password reset email 
+  def send_password_reset_email
+  #   generate_token(:password_reset_token)
+  #   self.password_reset_sent_at = Time.zone.now 
+  #   save!
+    UserMailer.password_reset(self).deliver_now
   end
 
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
+  end
+  
+  private
+
+  # Converts email to all lower-case.
+  def downcase_email
+    self.email = email.downcase
   end
 
 end
