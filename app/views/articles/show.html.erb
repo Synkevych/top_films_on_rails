@@ -50,7 +50,7 @@
     </p>
 
   </div>
-  <% unless @article.comments.empty?  then %>
+  <% if logged_in?  then %>
   <div class="container py-2">
     <div class="row">
       <div class="comments col-md-9" id="comments">

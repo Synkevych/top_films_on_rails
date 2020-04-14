@@ -8,7 +8,7 @@
       <%= form.submit "Search", :name => "", class: "btn btn-outline-primary my-2 my-sm-0" %>
     </div>
     <% end %>
-    <% if logged_in? then %>
+    <% if logged_in? %>
     <div class="col-auto">
       <%= link_to 'New Article', new_article_path, class: "btn btn-success"%>
     </div>
@@ -40,7 +40,7 @@
     <td>
       <%= time_ago_in_words(article.created_at)%>
     </td>
-    <% user_id = !logged_in? || current_user.id; if article.user_id == user_id || User.find(user_id).role == 'admin' then %>
+    <% user_id = current_user.nil? || current_user.id; if article.user_id == user_id then %>
     <td>
       <%= link_to 'Edit', edit_article_path(article), class: "btn btn-info" %>
     </td>

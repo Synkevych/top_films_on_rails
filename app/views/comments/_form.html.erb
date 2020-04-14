@@ -2,9 +2,6 @@
   <%= form_with(model: [@article, Comment.new], local: true) do |form|%>
 
   <%= hidden_field_tag "article_id", @article.id %>
-  <%#= form.hidden_field :article_id, value: @article.id %>
-  <%#= form.hidden_field :user_id %>
-
   <%= form.hidden_field :user_id, value: current_user.id%>
 
   <%= form.text_area :body, :class => "form-control" %>
@@ -13,5 +10,3 @@
   </p>
   <% end %>
 </div>
-
-<%# local: true ---> this means %>

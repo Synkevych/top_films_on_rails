@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :set_article
+  before_action :find_article,  only: [ :show, :update, :create ]
 
   def index
     if params.key? :search
@@ -26,10 +26,6 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    #@article = current_user.articles.build 
-  end
-
-  def edit
   end
 
   def create
@@ -71,12 +67,8 @@ class ArticlesController < ApplicationController
 
   private
 
-  def set_article
-    unless params[:id].nil?
-      @article = Article.find(params[:id])
-    else
-      @articles =  Article.all
-    end
+  def find_article
+    @article = Article.find(params[:id])
   end
 
   def create_new_img(new_img)

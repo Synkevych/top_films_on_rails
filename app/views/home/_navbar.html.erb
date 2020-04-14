@@ -19,7 +19,7 @@
     </ul>
     <% if logged_in? %>
     <% cl_image_tag current_user.avatar%>
-    <a href="/welcome" class="navbar_avarar">
+    <a href="<%= edit_user_path(current_user) %>" class="navbar_avarar">
       <%= cl_image_tag current_user.avatar.key, alt: 'avatar', class:'avatar rounded-circle border border-primary p-1'%>
     </a>
     <div class=" user ml-2 ">

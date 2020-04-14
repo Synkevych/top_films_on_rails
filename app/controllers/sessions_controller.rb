@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
+      flash[:success] = 'You are successfuly login in!'
       redirect_to '/welcome'
     else
       flash[:danger] = 'Invalid user/password combination'
@@ -27,8 +28,6 @@ class SessionsController < ApplicationController
   def welcome; end
 
   def login; end
-
-  def page_requires_login; end
 
   def destroy
     session.delete(:user_id)
