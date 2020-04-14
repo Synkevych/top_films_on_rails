@@ -295,4 +295,4 @@ Set them to the seting page from you heroku page like this:
 
 To set an environment variable on macOS, open aterminal window. If you are setting the environmentvariable to run jobs from the command line, use thefollowing command:
 
-`export variable=value`
+`export variable="value"`

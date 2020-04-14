@@ -20,12 +20,9 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-   # @user = User.find_by_password_reset_token!(params[:id])
   end
 
   def update
-    #@user = User.find_by_password_reset_token!(params[:id])
-
     if params[:user][:password].empty?
       flash[:alert] = "Password can't be empty."
       redirect_to new_password_reset_path
