@@ -260,3 +260,21 @@ end
 > self.per_page = 5 -> to article model
 > `articles.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)` to the index method in controller
 > `<%= will_paginate @article, list_classes: %w(pagination justify-content-end) %>1` to the html page
+
+Remove column directly from database
+
+```sql
+ALTER TABLE users
+DROP COLUMN reset_password_sent_at;
+```
+
+### To connect Cloudinary on Heroku
+
+Set them to the seting page from you heroku page like this: 
+`CLOUDINARY_URL cloudinary://937675854665996:sM_5iluwmdHeCiF1it-----`
+
+### Setup Mailgun, you need add this to heroku setting: 
+
+  :domain         => 'sandboxad5e64e21925497390e07b5d530529ac.mailgun.org',
+  :user_name      => 'postmaster@sandboxad5e64e21925497390e07b5d530529ac.mailgun.org',
+  :password       => 'd7ea5f7b919fed41574b07e700069487-915161b7-4bade139',
