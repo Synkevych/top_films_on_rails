@@ -3,16 +3,9 @@
 class SessionsController < ApplicationController
   skip_before_action :authorized, only: %i[new create welcome articles]
 
-  # before_action :set_default
-
-  # def set_default
-  #   session[:user_id] ||= 0
-  # end
-
   def new; end
 
   def create
-    # use to
     user = User.find_by(username: params[:username])
 
     if user&.authenticate(params[:password])
@@ -33,4 +26,5 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     redirect_to '/login'
   end
+
 end
