@@ -270,11 +270,29 @@ DROP COLUMN reset_password_sent_at;
 
 ### To connect Cloudinary on Heroku
 
-Set them to the seting page from you heroku page like this: 
+Set them to the seting page from you heroku page like this:
 `CLOUDINARY_URL cloudinary://937675854665996:sM_5iluwmdHeCiF1it-----`
 
-### Setup Mailgun, you need add this to heroku setting: 
+### Setup Mailgun, you need add this to heroku setting:
 
-  :domain         => 'sandboxad5e64e21925497390e07b5d530529ac.mailgun.org',
-  :user_name      => 'postmaster@sandboxad5e64e21925497390e07b5d530529ac.mailgun.org',
-  :password       => 'd7ea5f7b919fed41574b07e700069487-915161b7-4bade139',
+```ruby
+ config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :test
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+  :port           => 587,
+  :address        => 'smtp.mailgun.org',
+  :domain         => ENV['MAILGUN_SMTP_DOMAIN'],
+  :authentication => :plain,
+  :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  }
+  ActionMailer::Base.delivery_method = :smtp
+```
+
+### Set to the ENV on macOS
+
+To set an environment variable on macOS, open aterminal window. If you are setting the environmentvariable to run jobs from the command line, use thefollowing command:
+
+`export variable=value`
