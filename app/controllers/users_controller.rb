@@ -19,12 +19,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create!(user_param)
-    session[:user_id] = @user.id
-
+    
     if @user.valid?
       @user.save
-       flash[:success] = 'New user created!'
-       redirect_to '/welcome'
+      session[:user_id] = @user.id
+      flash[:success] = 'New user created!'
+      redirect_to '/welcome'
        
     else
       flash[:danger] = 'Invalid user/password combination'
@@ -45,6 +45,6 @@ class UsersController < ApplicationController
   private 
 
   def user_param
-    params.require(:user).permit(:username, :password, :avatar)
+    params.require(:user).permit(:username, :password, :email, :avatar)
   end
 end

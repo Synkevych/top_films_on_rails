@@ -64,19 +64,23 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateCheckerend
 
 
-  config.action_mailer.raise_delivery_errors = :smtp
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.raise_delivery_errors = :smtp
+  # config.action_mailer.delivery_method = :test
+  # host = 'localhost:3000'
+  # config.action_mailer.default_url_options = { host: host }
+
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.delivery_method = :test
   host = 'localhost:3000'
   config.action_mailer.default_url_options = { host: host }
-
-  # config.action_mailer.raise_delivery_errors = :smtp
-  # config.action_mailer.smtp_settings = {
-  # :authentication => :plain,
-  # :address => "smtp.mailgun.org",
-  # :port => 587,
-  # :domain => "sandboxad5e64e21925497390e07b5d530529ac.mailgun.org",
-  # :user_name => "postmaster@sandboxad5e64e21925497390e07b5d530529ac.mailgun.org",
-  # :password => "MYPASSWORD"
+  ActionMailer::Base.smtp_settings = {
+  :port           => 587,
+  :address        => 'smtp.mailgun.org',
+  :domain         => 'localhost:3000',
+  :authentication => :plain,
+  :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  }
+  ActionMailer::Base.delivery_method = :smtp
   
-
 end
