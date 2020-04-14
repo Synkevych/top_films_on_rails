@@ -3,10 +3,10 @@
 class UsersController < ApplicationController
 
   #attr_accessor :reset_token
+  before_action :find_user, only: [:show, :edit]
   skip_before_action :authorized, only: %i[new create]
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def create
@@ -25,10 +24,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       flash[:success] = 'New user created!'
       redirect_to '/welcome'
-       
     else
       flash[:danger] = 'Invalid user/password combination'
-      redirect_to '/users/new'
+      render 'new'
     end
   end
 
@@ -43,6 +41,10 @@ class UsersController < ApplicationController
   end
   
   private 
+
+  def find_user
+    @user = User.find(params[:id])
+  end 
 
   def user_param
     params.require(:user).permit(:username, :password, :email, :avatar)

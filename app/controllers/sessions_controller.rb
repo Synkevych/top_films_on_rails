@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       redirect_to '/welcome'
     else
       flash[:danger] = 'Invalid user/password combination'
-      render 'new'
+      redirect_to login_path
     end
   end
 

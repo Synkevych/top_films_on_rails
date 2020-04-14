@@ -70,17 +70,16 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: host }
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :smtp
   host = 'localhost:3000'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-  :port           => 587,
-  :address        => 'smtp.mailgun.org',
-  :domain         => ENV['MAILGUN_SMTP_DOMAIN'],
   :authentication => :plain,
+  :address        => 'smtp.mailgun.org',
+  :port           => 587,
+  :domain         => ENV['MAILGUN_SMTP_DOMAIN'],
   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
   }
-  ActionMailer::Base.delivery_method = :smtp
   
 end

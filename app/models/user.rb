@@ -54,7 +54,7 @@ def User.digest(string)
   #Sets the password reset attributes
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:password_reset_token,  User.digest(reset_token))
+    update_attribute(:password_reset_token, User.digest(reset_token))
     update_attribute(:password_reset_sent_at, Time.zone.now)
   end
 
