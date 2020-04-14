@@ -125,6 +125,7 @@ Things you may want to cover:
 > rename **gem 'sqlite3'** to **gem 'pg'**  
 > run: bundler install  
 > rails db:create
+> ails d migration remove_from_user_avatar_link - remove migrations
 > bundle exec rails webpacker:install  
 > heroku pg:reset DATABASE --confirm YOUR_APP_NAME
 > heroku run rake db:setup
