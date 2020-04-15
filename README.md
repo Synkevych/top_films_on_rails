@@ -1,13 +1,13 @@
 # README
 
-## Yay! This project deployed on [Heroku](https://still-island-36889.herokuapp.com)
+## Yay! This project deployed on [Heroku](https://calm-beyond-42465.herokuapp.com)
 
-Ruby version: 2.6.5/2.6.3  
+Ruby version: 2.7.0
 If you wanna do something, first set you task to list!  
-After the merge it's save to delete the branch: `$ git branch -d branch1`
-To prettify Ruby text inside Sublime: 
+After the merge it's save to delete the branch: `$ git branch -d branch1`  
+To prettify Ruby text inside Sublime:  
 highlight all code and type Ctrl + Shift + H  / Alt + Shift + F in VSCode  
-`git checkout -f` undoing changes 
+`git checkout -f` undoing changes  
 [How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)  
 
 ### Tasks

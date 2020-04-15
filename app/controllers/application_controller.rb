@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authorized
   helper_method :logged_in?
   helper_method :current_user
@@ -20,5 +21,11 @@ class ApplicationController < ActionController::Base
 
   def authorized
      # redirect_to '/welcome' unless logged_in?
-   end
+  end
+  
+  private
+  
+  def record_not_found
+      render plain: "404 Not Found", status: 404
+  end
 end

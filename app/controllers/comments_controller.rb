@@ -15,7 +15,10 @@ class CommentsController < ApplicationController
 
     if @comment.save
       flash[:success] = "Your comment was successfully created!"
-      redirect_to article_path(@article)
+    # redirect_to article_path(@article)
+      respond_to do |format|
+      format.js
+    end
     else
       flash[:alert] = "Comment wasn't created!"
       render 'new'      

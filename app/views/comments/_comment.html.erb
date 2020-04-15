@@ -6,6 +6,7 @@
 
       <%= cl_image_tag comment.user.avatar.key, alt: 'avatar', class:'avatar'%>
       <b> <%= comment.user.username %></b>
+      
     </div>
 
     <div class="card-body">
@@ -46,7 +47,7 @@
 
     <!-- Render nested comments -->
     <% unless comment.comments.blank? %>
-    <%= render comment.comments, :level => level + 1 %>
+      <%= render comment.comments, :level => level + 1 %>
     <% end %>
     <% end -%>
 
