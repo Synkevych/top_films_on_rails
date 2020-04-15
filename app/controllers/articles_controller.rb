@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :find_article,  only: [ :show, :update, :create ]
+  before_action :find_article,  only: [ :show, :update, :destroy, :edit ]
 
   def index
-    if params.key? :search
-      @search = params[:search].downcase
-      @articles = Article.where('lower(title) LIKE ? OR lower(text) LIKE ?', "%#{@search}%", "%#{@search}%")
-      paginate_articles(@articles)
-    else
-      paginate_articles(Article.includes(:user))
-    end
-  end
-
-  def paginate_articles(articles)
-      @articles = articles
+    @articles = Article.all
+    @articles = Article.where('lower(title) LIKE ? OR lower(text) LIKE ?',
+     "%#{params[:search].downcase}%",
+     "%#{params[:search].downcase}%") if params.key? :search
+    @articles = @articles
       .order('created_at DESC')
       .includes(:user)
       .paginate(page: params[:page])
@@ -45,8 +39,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    # @article = Article.find(params[:id])
-
     if @article.update(article_params)
       flash[:success] = "Successfully updated!"
       redirect_to @article
@@ -61,7 +53,6 @@ class ArticlesController < ApplicationController
     else
       flash[:error] = "Something went wrong, the acticle wasn't deleted"
     end
-
     redirect_to articles_path
   end
 

@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
 
   #attr_accessor :reset_token
-  before_action :find_user, only: [:show, :edit]
+  before_action :find_user, only: [:show, :edit, :update]
   skip_before_action :authorized, only: %i[new create]
 
   def show; end

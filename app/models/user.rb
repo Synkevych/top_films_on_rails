@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :reset_token
-  before_save :downcase_email
 
   validates :username, presence: true, uniqueness: true
   attribute :role, :string, default: 'user'
@@ -43,7 +42,7 @@ def User.digest(string)
   end
 
   def activate
-    update_attribute(:activated,    true)
+    update_attribute(:activated, true)
     update_attribute(:activated_at, Time.zone.now)
   end
 
@@ -68,9 +67,6 @@ def User.digest(string)
   
   private
 
-  def downcase_email
-    self.email = email.downcase
-  end
 
   #Creates and assigns an activation token and digest
   def create_activation_digest
