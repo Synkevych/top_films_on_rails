@@ -40,6 +40,7 @@
       <%= link_to "All Articles", articles_path, class: "btn btn-secondary btn-sm" %>
 
       <% unless current_user.nil? %>
+
       <%= link_to "Leave a comment on the article", new_comment_path(:article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% else %>
       <div class="ml-4">
@@ -49,32 +50,7 @@
       </div>
       <% end %>
     </p>
-    <!-- JavaScript Form --->
-    <%= form_with(model: @article, id: "new-article") do |form| %>
 
-    <div class="card-body text-white">
-      <%= form.label :title %>
-      <%= form.text_field :title, class: "form-control" %>
-    </div>
-    <div class="card-body text-white">
-      <%= form.label :text %>
-      <%= form.text_area :text, class: "form-control" %>
-      <%= link_to "an article", @article, remote: true %>
-    </div>
-
-    <% end %>
-    <script>
-      window.addEventListener("load", () => {
-        const element = document.querySelector("#new-article");
-        element.addEventListener("ajax:success", (event) => {
-          const [_data, _status, xhr] = event.detail;
-          element.insertAdjacentHTML("beforeend", xhr.responseText);
-        });
-        element.addEventListener("ajax:error", () => {
-          element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");
-        });
-      });
-    </script>
     <!-- Render Comments -->
   </div>
   <% unless @article.comments.empty?  then %>

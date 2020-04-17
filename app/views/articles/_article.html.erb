@@ -1,0 +1,33 @@
+<tr id="article_<%= article.id %>">
+  <th scope="row">
+    <%= article.user.username %>
+  </th>
+  <td>
+    <b>
+      <%= link_to article.title, article_path(article) %>
+    </b>
+  </td>
+  <td>
+    <%= link_to article.text, article_path(article) %>
+  </td>
+  <td>
+    <%= time_ago_in_words(article.created_at)%>
+  </td>
+  <% user_id = current_user.nil? || current_user.id; if article.user_id == user_id then %>
+  <td>
+    <%= link_to 'Edit', edit_article_path(article),
+      remote: true,
+       class: "btn btn-info" %>
+  </td>
+  <td>
+    <%= link_to 'x', article_path(article),
+          method: :delete,
+          data: { confirm: 'Are you sure?'},
+          remote: true,
+          class: "btn btn-danger" %>
+  </td>
+  <% else %>
+  <td></td>
+  <td></td>
+  <% end %>
+</tr>

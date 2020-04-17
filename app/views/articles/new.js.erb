@@ -1,0 +1,5 @@
+$('#new-article a').hide()
+.parent()
+.append("<%= j render 'form', article: @article %>")
+
+$('alert#alert_message').hide().fadeOut(1000);

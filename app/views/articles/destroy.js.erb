@@ -1,0 +1,7 @@
+$("article_<%= @article.id %>").fadeOut(500, function(){
+  $(this).remove();
+});
+$('table#articles card').append('<%= j render @article %>')
+$('#article_<%= @article.id %>').hide().fadeIn(1000);
+
+$('alert#alert_message').fadeIn(1000);

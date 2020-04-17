@@ -1,21 +1,29 @@
 <form class=" m-auto">
   <div class="form-row">
-    <%= form_with(url: articles_path, method: "get", local: true) do |form| %>
+    <%= form_with(url: articles_path,
+      method: "get",
+      local: true) do |form| %>
     <div>
-      <%= form.text_field :search, :value => @search, autofocus: true, placeholder: "Search by title", class: "form-control mr-sm-2"%>
+      <%= form.text_field :search, :value => @search,
+        autofocus: true,
+        placeholder: "Search by title",
+        class: "form-control mr-sm-2"%>
     </div>
     <div>
-      <%= form.submit "Search", :name => "", class: "btn btn-outline-primary my-2 my-sm-0" %>
+      <%= form.submit "Search", class: "btn btn-outline-primary my-2 my-sm-0" %>
     </div>
     <% end %>
     <% if logged_in? %>
-    <div class="col-auto">
-      <%= link_to 'New Article', new_article_path, class: "btn btn-success"%>
+    <div class="col-auto" id="new-article">
+      <%= link_to 'New Article', new_article_path,
+        remote: true,
+        class: "btn btn-success"%>
     </div>
     <% end %>
+    <%= render 'layouts/errors'%>
   </div>
 </form>
-<table class="table mt-4">
+<table class="table mt-4" id="articles">
   <tr>
     <th scope="col">User</th>
     <th scope="col">Label</th>
@@ -24,38 +32,9 @@
     <th scope="col"></th>
     <th scope="col"></th>
   </tr>
-  <% @articles.each do |article| %>
-  <tr>
-    <th scope="row">
-      <%= article.user.username %>
-    </th>
-    <td>
-      <b>
-        <%= link_to article.title, article_path(article) %>
-      </b>
-    </td>
-    <td>
-      <%= link_to article.text, article_path(article) %>
-    </td>
-    <td>
-      <%= time_ago_in_words(article.created_at)%>
-    </td>
-    <% user_id = current_user.nil? || current_user.id; if article.user_id == user_id then %>
-    <td>
-      <%= link_to 'Edit', edit_article_path(article), class: "btn btn-info" %>
-    </td>
-    <td>
-      <%= link_to 'x', article_path(article),
-   method: :delete,
-   data: { confirm: 'Are you sure?'},
-   class: "btn btn-danger" %>
-    </td>
-    <% else %>
-    <td></td>
-    <td></td>
-    <% end %>
-  </tr>
-  <% end %>
+  <%# @articles.each do |article| %>
+  <%= render @articles %>
+  <%# end %>
 </table>
 
 <div class="m-auto">
