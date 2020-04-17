@@ -24,7 +24,8 @@
     <!-- Reply Button -->
     <div class="mb-2">
       <% if logged_in? then %>
-      <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), class: "btn btn-primary btn-sm" %>
+      
+      <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), remote: true,  class: "btn btn-primary btn-sm" %>
       <% end %>
 
       <!-- Delete Button -->

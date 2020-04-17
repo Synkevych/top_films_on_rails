@@ -1,15 +1,5 @@
-<% if model.errors.any? %>
-<div class="alert alert-info" role="alert">
-  <div id="error_explanation">
-    <h4 class="alert-heading">
-      <%= pluralize(model.errors.count, "error") %> prohibited
-      this <%= model_str %> from being saved:
-    </h4>
-    <ul>
-      <% model.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-      <% end %>
-    </ul>
+<% flash.each do |type, msg| %>
+  <div class="alert alert-info" id="alert_message" role="alert">
+    <%= msg %>
   </div>
-</div>
 <% end %>

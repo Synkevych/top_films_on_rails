@@ -3,29 +3,17 @@
 ## Yay! This project deployed on [Heroku](https://calm-beyond-42465.herokuapp.com)
 
 Ruby version: 2.7.0
-If you wanna do something, first set you task to list!  
-After the merge it's save to delete the branch: `$ git branch -d branch1`  
+
 To prettify Ruby text inside Sublime:  
 highlight all code and type Ctrl + Shift + H  / Alt + Shift + F in VSCode  
+After the merge it's save to delete the branch: `$ git branch -d branch1`  
 `git checkout -f` undoing changes  
-[How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)  
-
-### Tasks
-
-1. Remove image if article deleted  
-1. Show error message for user & comment form
-1. Change logic of cheking user image
-1. Pagination for more than 10 post
-1. After click user name show user page with all his posts
-1. More info about user
 
 ---
 
 ### First Install
 
-If you're clonning this repo to install all Rails gems localy type:  
-
-> bundle install
+`rails new myapp --database=postgresql`
 
 ### Other tools to work with project
 
@@ -34,17 +22,9 @@ If you're clonning this repo to install all Rails gems localy type:
 > <https://github.com/DavidAnson/vscode-markdownlint>  
 > [cloudinary](https://cloudinary.com/) to save photo for free
 > Active Record  
+> [How to use rake db](https://dev.to/neshaz/how-to-use-rake-db-commands-in-the-correct-way--50o2)  
 
 ---
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
 
 * Configuration
 `rails generate controller Comments`  
@@ -69,7 +49,7 @@ Things you may want to cover:
 `rake db:reset db:migrate` видалення даних та створення таблиць заново
 
 * How to run the test suite
-`rails d controller welcome` - удалит контролер
+`rails d controller welcome` - remove controller and all included file
 `rails generate model Post title:string content:text`  
 `rails destroy model Post title:string content:text`
 
@@ -89,22 +69,16 @@ Things you may want to cover:
 > rails generate controller Welcome index  
 > the controller located *app/controllers/welcome_controller.rb*  
 > the view *app/view/welcome/index.html.erb*  
-> `<%= debug(params) if Rails.env.development? %>` to display dubug inforamtion
 
 ---
 
 **Troubleshooting:**
 
-> ! sqlite3 could not find  
-> ! webpacker could not find  
-> ! webpacker configuration file nor found (RuntimeError)  
 > rails webpacker  
 > install yarn  
 > npm install yarn -g  
-> rails new my_pg_app -d postgresql --- to create new project with PostgreSQL database
 > bundler install > after updating some gems  
 > git restore -s  postgres -- .\README.md  
-> to show your db on pdAdmin connect to them with username and passwor which you created earlier
 
 ### Install Bundler on Mac
 
@@ -295,4 +269,4 @@ Set them to the seting page from you heroku page like this:
 
 To set an environment variable on macOS, open aterminal window. If you are setting the environmentvariable to run jobs from the command line, use thefollowing command:
 
-`export variable="value"`
+open bash_profile `vim ~/.bash_profile`
