@@ -20,11 +20,11 @@
        class: "btn btn-info" %>
   </td>
   <td>
-    <%= link_to 'x', article_path(article),
+    <%= link_to '&times;'.html_safe, article_path(article),
           method: :delete,
           data: { confirm: 'Are you sure?'},
           remote: true,
-          class: "btn btn-danger" %>
+          class: "btn delete" %>
   </td>
   <% else %>
   <td></td>

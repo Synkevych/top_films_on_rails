@@ -10,21 +10,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.find(params[:id])
+     #@article = current_user.articles.find(params[:id])
     @comment = @commentable.comments.create(comment_params)
 
     flash[:success] = "Your comment was successfully created!"
-    redirect_to article_path(@article)
-        # respond_to do |format|
-    #   if @comment.save
-    #     format.js
-    #     format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.'}
-    #     #format.json { render :show, status: :created, notice:@comment}
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json, @comment.errors, status: :unprocessable_entity }
-    #   end
-    # end
+     redirect_to article_path(@article)
   end
 
   def destroy
@@ -42,7 +32,12 @@ class CommentsController < ApplicationController
   private
 
   def set_article
+     #@article = Article.find(params[:article_id])
+    unless params[:article_id].nil?
       @article = Article.find(params[:article_id])
+    else
+      @article =  Article.all
+    end
   end
 
   def find_commentable

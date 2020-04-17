@@ -1,4 +1,5 @@
 $('#new-article a').remove().fadeIn(1000);
 
 $('table#articles card').append('<%= j render @article %>')
-$('#article_<%= @article.id %>').hide().fadeIn(1000);
+//$('#article_<%= @article.id %>').hide().fadeIn(1000);
+$('.alert #alert_message').addClass("show");

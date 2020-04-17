@@ -1,7 +1,15 @@
-$("article_<%= @article.id %>").fadeOut(500, function(){
-  $(this).remove();
+$('.delete').bind('ajax:success', function(){ 
+  $(this).closest('tr').fadeOut();
 });
-$('table#articles card').append('<%= j render @article %>')
-$('#article_<%= @article.id %>').hide().fadeIn(1000);
 
-$('alert#alert_message').fadeIn(1000);
+window.onload = function()
+{
+    if (window.jQuery)
+    {
+        alert('jQuery is loaded');
+    }
+    else
+    {
+        alert('jQuery is not loaded');
+    }
+}

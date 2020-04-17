@@ -36,13 +36,13 @@ class ArticlesController < ApplicationController
     # end
     respond_to do |format|
       if @article.save
+        format.js
         format.html { redirect_to articles_path, notice: 'Article successfully created!'}
         format.json { render :show, status: :created, notice: @article}
-        format.js
       else
+        format.js
         format.html { render :new }
         format.json { render json, @article.errors, status: :unprocessable_entity }
-        format.js
       end
     end
   end
@@ -70,7 +70,7 @@ class ArticlesController < ApplicationController
 
   def destroy
 
-    if @article.destroy
+    @article.destroy
     #   flash[:success] = "Successfully deleted!"
     # else
     #   flash[:error] = "Something went wrong, the acticle wasn't deleted"
@@ -81,7 +81,6 @@ class ArticlesController < ApplicationController
       format.html { redirect_to articles_path, notice: 'Post was successfully destroyed.'}
       format.json { head :no_content }
     end
-  end
   end
 
   private
