@@ -17,15 +17,6 @@
       </li>
       <% end %>
     </ul>
-    <% if logged_in? %>
-    <% cl_image_tag current_user.avatar%>
-    <a href="<%= edit_user_path(current_user) %>" class="navbar_avarar">
-      <%= cl_image_tag current_user.avatar.key, alt: 'avatar', class:'avatar rounded-circle border border-primary p-1'%>
-    </a>
-    <div class=" user ml-2 ">
-    </div>
-    <% else %>
     <%= link_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
-    <% end %>
   </div>
 </nav>

@@ -1,15 +1,8 @@
-$('.delete').bind('ajax:success', function(){ 
-  $(this).closest('tr').fadeOut();
-});
+//$('.delete').on('ajax:success', (e, data, status, xhr)=>{ 
+//  console.log([e, data, status, xhr]);
+//})
 
-window.onload = function()
-{
-    if (window.jQuery)
-    {
-        alert('jQuery is loaded');
-    }
-    else
-    {
-        alert('jQuery is not loaded');
-    }
-}
+$('.delete').bind('ajax:success', function(){ 
+  $(this).closest('tr').fadeOut(1000);
+  $('.alert#snackbar').addClass("show");
+});
