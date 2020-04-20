@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   # this create comments as a nested resource with articles
   resources :articles do
+    member do
+      patch :publish
+    end
     resources :comments
   end
    

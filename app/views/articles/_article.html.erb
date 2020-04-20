@@ -1,6 +1,6 @@
 <tr id="article_<%= article.id %>">
   <th scope="row">
-    <%= article.user.username %>
+    <%= article.id %>
   </th>
   <td>
     <b>
@@ -11,9 +11,11 @@
     <%= link_to article.text, article_path(article) %>
   </td>
   <td>
-    <%= time_ago_in_words(article.created_at)%>
+  <span id="published-at">
+    <%= time_ago_in_words(article.updated_at)%>
+    </span>
   </td>
-  <% user_id = current_user.nil? || current_user.id; if article.user_id == user_id then %>
+  <% user_id ||= current_user.id; if article.user_id == user_id then %>
   <td>
     <%= link_to 'Edit', edit_article_path(article),
       remote: true,
@@ -25,6 +27,11 @@
           data: { confirm: 'Are you sure?'},
           remote: true,
           class: "btn delete" %>
+    <%= link_to 'Update time', publish_article_path(article),
+      method: :patch,
+      remote: true,
+      data: { disable_with: "Publishing..."},
+      class: "btn btn-info" %>
   </td>
   <% else %>
   <td></td>

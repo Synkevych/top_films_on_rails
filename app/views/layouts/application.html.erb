@@ -15,6 +15,9 @@
   <%= render 'home/navbar' %>
   <div class="container">
     <br>
+    <% flash.each do |message_type, message| %>
+    <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+    <% end %>
     <div class="row mx-auto w-75">
       <%= yield %>
     </div>

@@ -40,18 +40,15 @@
       <%= link_to "All Articles", articles_path, class: "btn btn-secondary btn-sm" %>
 
       <% unless current_user.nil? %>
-
       <%= link_to "Leave a comment on the article", new_comment_path(:article_id => @article.id), class: "btn btn-primary btn-sm" %>
       <% else %>
-      <div class="ml-4">
-        You need
-        <%= link_to "Log In", "/login" %>
+      <div>
+        <%= link_to "Log In", "/login", class: "ml-4" %>
         to leave a comment.
       </div>
       <% end %>
     </p>
 
-    <!-- Render Comments -->
   </div>
   <% unless @article.comments.empty?  then %>
   <div class="container py-2">

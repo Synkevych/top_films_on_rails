@@ -1,0 +1,6 @@
+
+const el = $("#published-at");
+el.text("<%= time_ago_in_words(@article.updated_at) %>");
+$("tr#article_<%= @article.id %>").fadeOut(500)
+
+el.parent().parent().parent().prepend("<%= j render @article %>");

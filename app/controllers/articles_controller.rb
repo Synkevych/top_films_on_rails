@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :find_article,  only: [ :show, :update, :destroy, :edit ]
+  before_action :find_article,  only: [ :show, :update, :destroy, :edit, :publish  ]
 
   def index
     @articles = Article.all
@@ -15,7 +15,9 @@ class ArticlesController < ApplicationController
   end 
     
   def show
-    @comments = @article.comments.order('created_at DESC').paginate(page: params[:page])
+    @comments = @article.comments
+    .order('created_at DESC')
+    .paginate(page: params[:page])
   end
 
   def new
@@ -27,23 +29,16 @@ class ArticlesController < ApplicationController
 
     @article = Article.new(article_params)
     #@article.update(image: new_img_url['url'])
-    # if @article.valid?
-    #   flash[:success] = "Article successfully created!"
-    #   redirect_to @article
-    # else
-    #    flash[:alert] = "With creating Acticle was some problem!"
-    #   render 'new'
-    # end
-    respond_to do |format|
-      if @article.save
+     if @article.save
+      flash[:success] = "Article successfully created!"
+      respond_to do |format| 
         format.js
         format.html { redirect_to articles_path, notice: 'Article successfully created!'}
-        format.json { render :show, status: :created, notice: @article}
-      else
-        format.js
-        format.html { render :new }
-        format.json { render json, @article.errors, status: :unprocessable_entity }
       end
+    #   redirect_to @article
+    else
+      flash[:alert] = "With creating Acticle was some problem!"
+      render 'new'
     end
   end
 
@@ -57,30 +52,34 @@ class ArticlesController < ApplicationController
     @article.update(article_params)
     respond_to do |format|
     if @article.save
-      format.html { redirect_to articles_path, notice: 'Article successfully updated!'}
-      format.json { render :show, status: :ok, location: @article}
       format.js
+    #  format.html { redirect_to articles_path, notice: 'Article successfully updated!'}
+    #  format.json { render :show, status: :ok, location: @article}
     else
-      format.html { render :new }
-      format.json { render json, @article.errors, status: :unprocessable_entity }
       format.js
+    #  format.html { render :new }
+    #  format.json { render json, @article.errors, status: :unprocessable_entity }
     end
   end
   end
 
   def destroy
-
-    @article.destroy
-    #   flash[:success] = "Successfully deleted!"
-    # else
-    #   flash[:error] = "Something went wrong, the acticle wasn't deleted"
-    # end
-    # redirect_to articles_path
-    respond_to do |format| 
-      format.js
-      format.html { redirect_to articles_path, notice: 'Post was successfully destroyed.'}
-      format.json { head :no_content }
+    if @article.destroy
+      flash[:success] = "Successfully deleted post!"
+      respond_to do |format| 
+        format.js
+        #format.html { redirect_to articles_path, notice: 'Post was successfully destroyed.'}
+        #format.json { head :no_content }
+      end
+    else
+      flash[:error] = "Something went wrong, the acticle wasn't deleted"
+      redirect_to articles_path
     end
+  end
+  
+  def publish
+    flash.now[:success] = "Time was updated"
+    @article.update( created_at: Time.zone.now )
   end
 
   private

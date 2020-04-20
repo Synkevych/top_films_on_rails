@@ -1,8 +1,8 @@
-<%= form_with(model: @article, remote: true) do |form| %>
+<%= form_with(model: @article, remote: true, class: "new-article-form") do |form| %>
 <% if @article.errors.any? %>
 <div class="modal fade" id="update_article_<%= article.id %>"> 
 <% end %>
-<% if current_user %>
+<% if logged_in? %>
 <%= form.hidden_field :user_id, value: current_user.id, class: "form-control"%>
 <% end %>
 <div class="card-body text-white">
