@@ -1,8 +1,8 @@
-    <div class="container">
-      <%= render 'home/container' %>
-      <%# @output_JSON %>
-      <div class="row mx-auto">
-        <%= yield %>
-      </div>
-      <% = render 'home/pagination'%>
-    </div>
+<div class="container">
+  <%if !logged_in? then %>
+  <%= render 'home/container' %>
+  <% end %>
+  <div class=" mx-auto">
+    <%= render 'home/card' %>
+  </div>
+</div>

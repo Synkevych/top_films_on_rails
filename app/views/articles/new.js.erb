@@ -1,0 +1,4 @@
+$('#new-article a')
+.hide()
+.parent()
+.append("<%= j render 'form', article: @article %>")

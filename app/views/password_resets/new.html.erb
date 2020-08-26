@@ -1,0 +1,15 @@
+<div class="col">
+  <div class="card bg-light mb-3"" style=" min-width: 22rem;">
+
+    <div class="card-header bg-white">
+      <b>Reset Password</b>
+    </div><br />
+    <%#= form_with(model: @article, local: true) do |form| %>
+    <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control' %>
+
+    <%= f.submit "Submit", class: "btn btn-outline-dark" %>
+    <% end %>
+  </div>
+</div>

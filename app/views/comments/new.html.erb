@@ -1,0 +1,21 @@
+<div class="card rounded w-75">
+  <div class="card-header">Add a comment:</div>
+
+  <div class="card-body">
+
+    <%= form_with(model: [@commentable, @comment], local: true) do |form| %>
+
+    <%#= render 'layouts/errors', model: @comment , model_str: 'comment' %>
+    <%= hidden_field_tag "article_id", @article.id %>
+    <%= form.hidden_field :user_id %>
+    <%= form.text_area :body, class: "form-control", rows: "8", placeholder: "What Did You Want To Say?" %>
+
+
+  <div class="card-footer">
+    <%= form.submit 'Create', class: "btn btn-primary btn-sm"%>
+    <%= link_to "Back", "/articles/", class: "btn btn-secondary btn-sm"%>
+    <% end %>
+    
+  </div>
+  </div>
+</div>

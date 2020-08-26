@@ -1,21 +1,22 @@
-<div class="card border-success mb-3">
-    <div class="card-header bg-success"> Add a comment:</div>
+<div class="" id="article-reply">
+  <%= form_with(model: [@article, Comment.new]) do |form|%>
+<% if comment.errors.any? %>
+  <div id="error-message">
+    <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comments from being saved: </h2>
+    <ul> 
+    <% comment.errors.full_message.each do |message| %>
+    <li> <%= message %> </li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
 
-    <%= form_with(model: [@article, @article.comments.build ], local: true ) do |form| %>
+  <%= hidden_field_tag "article_id", @article.id %>
+  <%= form.hidden_field :user_id, value: current_user.id%>
 
-
-    <div class="card-body">
-        <%= form.label :commenter %><br>
-        <%= form.text_field :commenter, value: (current_user.nil? ? 'default' : current_user.username), class: "form-control" %>
-    </div>
-    <div class="card-body">
-        <%= form.label :body %><br>
-        <%= form.text_area :body, class: "form-control" %>
-    </div>
-    <div class="card-body">
-        <%# = link_to "Submit", form.submit, class: "btn btn-primary"%>
-        <%= submit_tag 'Submit', class: 'btn btn-primary' %>
-        <% end %>
-    </div>
-
+  <%= form.text_area :body, :class => "form-control" %>
+  <p>
+    <%= form.submit "Create", :class => "btn btn-outline-dark" %>
+  </p>
+  <% end %>
 </div>

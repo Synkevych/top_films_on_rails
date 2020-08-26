@@ -1,34 +1,27 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-skip_before_action :authorized, only: [:new, :create, :welcome]
-  
-  def new
-  end
+  skip_before_action :authorized, only: %i[new create welcome articles]
+
+  def new; end
 
   def create
-    # use to 
-    user = User
-    .find_by(username: params[:username])
-   # .try(:authenticate, params["username"]["password"]
+    user = User.find_by(username: params[:username])
 
-    if user && user.authenticate(params[:password])
-        session[:user_id] = user.id 
-        redirect_to '/welcome'
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+      flash[:success] = 'You are successfuly login in!'
+      redirect_to '/welcome'
     else
       flash[:danger] = 'Invalid user/password combination'
-      render 'new'
+      redirect_to login_path
     end
   end
 
-  def welcome
-    
-  end
+  def welcome; end
 
-  def login
-  end
+  def login; end
 
-  def page_requires_login
-  end
-  
   def destroy
     session.delete(:user_id)
     redirect_to '/login'

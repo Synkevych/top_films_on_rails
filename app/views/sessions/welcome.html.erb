@@ -1,17 +1,32 @@
-<div class="jumbotron">
+<div class="col">
+  <div class="jumbotron text-center">
     <h3 class="display-5">Welcome</h3>
     <p class="lead">
-        <%if logged_in?%>
-        You are Logged In, <b><%= current_user.username %></b>
-        <%end%></p>
+      <%if logged_in?%>
+      You are Logged In as: <b>
+        <%= current_user.username %></b>
+      <div class="user">
+        <div class="avarar">
+          <%= cl_image_tag current_user.avatar.key, alt: 'avatar',class:'avatar'%>
+        </div>
+      </div>
+      <%end%>
+    </p>
     <hr class="my-4">
     <p> What youre wanna to do: </p>
-    <ul>
+    <!-- Form with data -->
+    <ul class="list-unstyled">
+      <li>
         <%if !logged_in?%>
-        <li><%= button_to "Sign In", '/users/new', method: :get%></li>
-        <li><%= button_to "Login", '/login', method: :get%></li>
+        <%= link_to "Sign In", '/users/new', method: :get, class: "btn btn-info"%>
+        <%= link_to "Login", '/login', method: :get, class: "btn btn-info"%>
+      </li>
+      <li>
         <% else %>
-        <li><%= button_to "Logout", '/logout', method: :delete%></li>
+        <%= link_to "Logout", '/logout', method: :delete, class: "btn btn-warning"%>
+        <%= link_to "Profile", edit_user_path(current_user), method: :get, class: "btn btn-info"%>
         <%end%>
-        <ul>
+      </li>
+      <ul>
+  </div>
 </div>

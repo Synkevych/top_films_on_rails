@@ -53,10 +53,33 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Use Cloudinary.
+  config.active_storage.service = :cloudinary
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateCheckerend
+
+
+  # config.action_mailer.raise_delivery_errors = :smtp
+  # config.action_mailer.delivery_method = :test
+  # host = 'localhost:3000'
+  # config.action_mailer.default_url_options = { host: host }
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+  :authentication => :plain,
+  :address        => 'smtp.mailgun.org',
+  :port           => 587,
+  :domain         => ENV['MAILGUN_SMTP_DOMAIN'],
+  :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  }
+
 end

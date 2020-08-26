@@ -1,31 +1,33 @@
 Rails.application.routes.draw do
   
- resources :users, only: [:new, :create, :articles]
+ root 'home#index'
   
-  get 'login', to: 'sessions#new'
-
+ resources :users, only: [:new, :create, :welcome, :edit, :update]
+  
+  get 'sessions/new',  to: 'sessions#login'
+  post 'sessions/new'
+  get 'login', to: 'sessions#login'
   post 'login', to: 'sessions#create'
-
-  get 'welcome', to: 'sessions#welcome'
-
-  get 'authorized', to: 'sessions#page_requires_login'
-
   delete 'logout' => 'sessions#destroy'
-
-  post 'user', to: 'users#users'
-
+  get 'signup', to: 'users#new'
+  get 'welcome', to: 'sessions#welcome'
+  get 'authorized', to: 'sessions#page_requires_login'
+  post 'user', to: 'users#user'
   get 'home/index'
 
-  # resource method can be used to declare a standart REST resource
-  # you need to add the article resource to the config/routes.rb so the file will look as follows
-  
+
+  # this create comments as a nested resource with articles
   resources :articles do
-    # this create comments as a nested resource with articles
+    member do
+      patch :publish
+    end
+    resources :comments
+  end
+   
+  resources :comments do
     resources :comments
   end
   
-  post "searching" => 'home#searching'
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
-  root 'home#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

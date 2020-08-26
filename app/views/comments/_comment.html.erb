@@ -1,19 +1,57 @@
-  <div class="card">
-      <div class="card-header"> <b> @<%= comment.commenter %>
-          </b>
-          <%= comment.created_at.strftime(" %m.%d.%Y") %>
-      </div>
-      <div class="card-body">
+<div class="card">
+  <div class="card-header">
+    <%= content_tag :div, style: "margin-left: #{level * 1}px" do %>
 
-          <div class="card-text border-success">
-              <%= comment.body %>
-          </div>
-          <br />
-          <% if !current_user.nil?  then %>
-          <%= link_to 'Remove', [comment.article, comment],
-               method: :delete,
-               data: { confirm: 'Are you sure?' },
-               class: "btn btn-danger card-link" %>
-          <% end %>
+    <div class="comment-avatar ">
+
+      <%= cl_image_tag comment.user.avatar.key, alt: 'avatar', class:'avatar'%>
+      <b> <%= comment.user.username %></b>
+      
+    </div>
+
+    <div class="card-body">
+      <div class="card-text border-success">
+
+        <%= comment.body %>
       </div>
+
+      <p class="card-text text-muted"><small class="text-muted">
+          <%= time_ago_in_words(comment.created_at) %>
+        </small>
+      </p>
+    </div>
+
+    <!-- Reply Button -->
+    <div class="mb-2">
+      <% if logged_in? then %>
+      
+      <%= link_to "Reply", new_comment_path(:comment_id => comment.id, :article_id => @article.id), remote: true,  class: "btn btn-primary btn-sm" %>
+      <% end %>
+
+      <!-- Delete Button -->
+      <%  current_user_id = logged_in? ? current_user.id : false %>
+      <% if comment.user.id == current_user_id then %>
+
+      <% if comment.commentable_type == "Article" then %>
+
+      <%= link_to 'Remove', [comment.commentable, comment],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+      <% else %>
+
+      <%= link_to 'Remove', [comment.commentable, comment, {:article_id => @article.id}],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+      <% end %>
+      <% end %>
+    </div>
+
+    <!-- Render nested comments -->
+    <% unless comment.comments.blank? %>
+      <%= render comment.comments, :level => level + 1 %>
+    <% end %>
+    <% end -%>
+
   </div>
+
+</div>

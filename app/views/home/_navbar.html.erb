@@ -1,31 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Top Rated Movies </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/home">Top Films</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/articles">Articles</a>
-            </li>
-        </ul>
-        <%= form_tag searching_path, :method => 'POST' do %>
-        <div class="form-inline my-2 my-lg-0">
-            <%= text_field_tag 'search_request', nil, placeholder: "Search Film", class: "form-control mr-sm-2" %>
-            <%= submit_tag 'Search', class: 'btn btn-secondary mr-2 '%>
-            <% end %>
-
-            <% if !current_user.nil? %>
-            <%= button_to current_user.username, '/user', :method=> 'GET', class: 'btn btn-success my-2 my-sm-0'%>
-            <% else %>
-            <%= button_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
-            <% end %>
-        </div>
+  <a class="navbar-brand" href="/">Postagram </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/articles">Articles</a>
+      </li>
+      <% if logged_in? %>
+      <li class="nav-item">
+        <%= link_to "Profile", edit_user_path(current_user.id), class: "nav-link"%>
+      </li>
+      <% end %>
+    </ul>
+    <% if logged_in? %>
+    <% cl_image_tag current_user.avatar%>
+    <a href="<%= edit_user_path(current_user) %>" class="navbar_avarar">
+      <%= cl_image_tag current_user.avatar.key, alt: 'avatar', class:'avatar rounded-circle border border-primary p-1'%>
+    </a>
+    <div class=" user ml-2 ">
+    </div>
+    <% else %>
+    <%= link_to 'Login', '/login', class: 'btn btn-success my-2 my-sm-0'%>
+    <% end %>
+  </div>
 </nav>

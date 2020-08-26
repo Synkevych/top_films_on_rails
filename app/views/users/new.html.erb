@@ -1,15 +1,43 @@
-<h1>Sing Up</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<!-- Sing Up page  --->
+<div class="col">
+  <div class="jumbotron text-center">
+    <h3 class="display-5">Sing Up</h3>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <ul class="list-unstyled">
+      <%= form_for @user do |form| %>
+      <% if @user.errors.any? %>
+      <div id="error_explanation" class="alert alert-warning" role="alert">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-
-
-<%= form_for @user do |form| %>
-<%= form.label :username %><br>
-<%= form.text_field :username %><br>
-
-<%= form.label :password %><br>
-<%= form.password_field :password %><br>
-<%= form.submit %>
-<%= button_to "Login", '/users/new', method: :get%>
-
-<% end %>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <div class="form-group">
+        <%= form.label :username %>
+        <%= form.text_field :username %>
+      </div>
+      <li>
+        <%= form.label :avatar %>
+        <%= form.file_field :avatar, direct_upload: true %>
+      </li>
+      <li>
+        <%= form.label :email %>
+        <%= form.email_field :email%>
+      </li>
+      <li>
+        <%= form.label :password %>
+        <%= form.password_field :password %>
+      </li>
+      <li class="mt-2">
+        <%= form.submit class: "btn btn-success"%>
+        <%= link_to "Login", '/login', method: :get, class: "btn btn-primary"%>
+        <% end %>
+      </li>
+      <ul>
+  </div>
+</div>
